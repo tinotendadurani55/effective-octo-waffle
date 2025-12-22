@@ -23,3 +23,14 @@ COPY . .
 
 # Start the bot
 CMD ["node", "index.js"] 
+require('dotenv').config(); // Loads variables from Koyeb settings or local .env
+
+const express = require('express');
+const app = express();
+
+// Use the PORT variable provided by Koyeb
+const port = process.env.PORT || 8000; 
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
