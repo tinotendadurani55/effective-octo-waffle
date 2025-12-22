@@ -1603,6 +1603,24 @@ Ready for commands: *.weather* or *.wallpaper*.
         }
     });
 
+    // --- ADD THIS TO THE VERY BOTTOM OF index3.js ---
+sock.ev.on('messages.upsert', async ({ messages }) => {
+    const m = messages[0];
+    if (!m.message || m.key.fromMe || m.key.remoteJid.endsWith('@g.us')) return;
+
+    const sender = m.key.remoteJid;
+    const body = m.message.conversation || m.message.extendedTextMessage?.text || "";
+
+    // If they message you personally (not a command)
+    if (body && !body.startsWith(config.prefix)) {
+        const welcomeMsg = `👋 Hello! I am *${config.botName}*.\n\nOwner *${config.ownerName}* is currently busy. Type *${config.prefix}menu* to see what I can do for you! ⚡`;
+        
+        await sock.sendMessage(sender, { text: welcomeMsg });
+        console.log(`✅ Sent Auto-Welcome to ${sender.split('@')[0]}`);
+    }
+});
+
+
     sock.ev.on('connection.update', (update) => {
         const { connection, lastDisconnect, qr } = update;
         if (qr) {
