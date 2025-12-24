@@ -1,21 +1,21 @@
-# Use a lightweight version of Node.js
-FROM node:18-slim
+# 1. Use Alpine - the smallest possible version of Node.js
+FROM node:18-alpine
 
-# Create and define the application directory
-WORKDIR /usr/src/app
+# 2. Set the working directory
+WORKDIR /app
 
-# Copy package files first (to cache dependencies)
+# 3. Copy package files
 COPY package*.json ./
 
-# Install only production dependencies to save memory
-# This helps avoid the "Exit Code 51" memory issues
-RUN npm install --omit=dev
+# 4. Install only what's necessary and clean the cache immediately
+# This prevents the build from hitting the 2GB disk/512MB RAM limit
+RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 
-# Copy the rest of your application code
+# 5. Copy your bot code
 COPY . .
 
-# Expose the port Koyeb expects (usually 8000 or 3000)
+# 6. Tell Koyeb which port to use
 EXPOSE 8000
 
-# Start the application
-CMD [ "npm", "start" ]
+# 7. Start the bot
+CMD ["npm", "start"]
