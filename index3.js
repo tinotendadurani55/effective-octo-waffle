@@ -5,7 +5,7 @@
 ║                                                                  ║
 ║    *** V12: MULTI-ROUND QUIZ GAME SYSTEM IMPLEMENTED (FIXED) *** ║
 ║    *** FIX: AUDIO FILE SIZE OPTIMIZED IN .play COMMAND *** ║
-║    *** FIX: VIDEO FILE SIZE OPTIMIZED IN .ytv COMMAND (480p) *** ║
+║    *** FIX: VIDEO FILE SIZE OPTIMIZED IN .ytv COMMAND (360p) *** ║
 ║        Refined by Gemini AI (Modern Baileys & Robust Checks)       
 ╚══════════════════════════════════════════════════════════════════╝
 */
@@ -428,8 +428,8 @@ const commands = {
 ▫️ 𝙰𝚍𝚍𝚎𝚍 \`.𝚜𝚌𝚘𝚛𝚎\` 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚝𝚘 𝚌𝚑𝚎𝚌𝚔 𝚖𝚊𝚛𝚔𝚜 𝚊𝚗𝚢𝚝𝚒𝚖𝚎.
 ▫️ 𝟸𝟶-𝚜𝚎𝚌𝚘𝚗𝚍 𝚙𝚊𝚞𝚜𝚎 𝚊𝚏𝚝𝚎𝚛 𝚎𝚊𝚌𝚑 𝚊𝚗𝚜𝚠𝚎𝚛 𝚋𝚎𝚏𝚘𝚛𝚎 𝚗𝚎𝚡𝚝 𝚚𝚞𝚎𝚜𝚝𝚒𝚘𝚗.
 ▫️ 𝙴𝚗𝚍-𝚘𝚏-𝚐𝚊𝚖𝚎 𝚛𝚊𝚝𝚒𝚗𝚐: *WOW!*, *Good Job!*, or *Try Again!*.
-▫️ *NEW!* Optimized *.play* command to reduce audio file size for faster sending.
-▫️ *NEW!* Optimized *.ytv* command to target 360p resolution for cloud deployment.
+▫️ *NEW!* Optimized *.play* command to 128kbps to save data.
+▫️ *NEW!* Optimized *.ytv* command to target 360p resolution to save data.
 ✦━━━━━━━━━━━━━━━━━━━━━━✦
       https://whatsapp.com/channel/0029Vb1JJlR9WtBzWg26wi3e
 ✦━━━━━━━━━━━━━━━━━━━━━━✦
@@ -477,7 +477,7 @@ const commands = {
                 if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
                 const outputFileName = path.join(tempDir, `${Date.now()}-${video.id}.mp4`);
                 
-                // ✅ FORCE 360p FOR CLOUD DEPLOYMENT SPEED
+                // ✅ STRICT 360p DATA SAVING MODE
                 const command = `yt-dlp -f 'bestvideo[height<=360][ext=mp4]+bestaudio[ext=m4a]/best[height<=360][ext=mp4]' --no-mtime -o "${outputFileName}" "${videoUrl}"`;
                 
                 await new Promise((resolve, reject) => {
@@ -489,7 +489,7 @@ const commands = {
                 
                 await ctx.sock.sendMessage(ctx.from, {
                     video: fs.readFileSync(outputFileName),
-                    caption: `✅ *360p Optimized*\nTitle: ${video.title}`,
+                    caption: `✅ *360p Data Saving Mode*\nTitle: ${video.title}`,
                     mimetype: 'video/mp4'
                 }, { quoted: ctx.m });
 
@@ -517,7 +517,7 @@ const commands = {
                 if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
                 const outputFileName = path.join(tempDir, `${Date.now()}-${video.id}.mp3`);
                 
-                // ✅ SET AUDIO TO 128kbps
+                // ✅ SET AUDIO TO 128kbps (STRICT DATA SAVING)
                 const command = `yt-dlp -x --audio-format mp3 --audio-quality 128K --no-mtime -o "${outputFileName}" "${video.url}"`;
                 
                 await new Promise((resolve, reject) => {
