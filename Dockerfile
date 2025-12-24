@@ -1,27 +1,21 @@
-# Use Node.js 20 as the base image
-FROM node:20-slim
+# Use a lightweight version of Node.js
+FROM node:18-slim
 
-# Install system dependencies (ffmpeg and python for yt-dlp)
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    python3 \
-    python3-pip \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# Create and define the application directory
+WORKDIR /usr/src/app
 
-# Install yt-dlp manually
-RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
-    && chmod a+rx /usr/local/bin/yt-dlp
-
-# Set working directory
-WORKDIR /app
-
-# Copy package files and install dependencies
+# Copy package files first (to cache dependencies)
 COPY package*.json ./
-RUN npm install
 
-# Copy the rest of your bot code
+# Install only production dependencies to save memory
+# This helps avoid the "Exit Code 51" memory issues
+RUN npm install --omit=dev
+
+# Copy the rest of your application code
 COPY . .
 
-# Start the bot
-CMD ["node", "index3.js"]
+# Expose the port Koyeb expects (usually 8000 or 3000)
+EXPOSE 8000
+
+# Start the application
+CMD [ "npm", "start" ]
