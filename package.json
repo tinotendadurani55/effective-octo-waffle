@@ -1,22 +1,18 @@
-FROM node:18
-
-# Install dependencies for WhatsApp bots (Puppeteer/Playwright)
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    imagemagick \
-    webp && \
-    apt-get clean
-
-WORKDIR /app
-
-# Copy dependency files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of your code
-COPY . .
-
-# Start the bot using your main file
-CMD ["node", "index3.js"]
+{
+  "name": "kidjustin-k-bot",
+  "version": "12.0.0",
+  "description": "WhatsApp Bot by t.Durani",
+  "main": "index3.js",
+  "scripts": {
+    "start": "node index3.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "latest",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "pino": "^8.16.0",
+    "qrcode-terminal": "^0.12.0",
+    "play-dl": "latest",
+    "uuid": "^9.0.1"
+  }
+}
