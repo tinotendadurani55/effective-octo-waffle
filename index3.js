@@ -69,7 +69,7 @@ const gameQuestions = [
         category: "Science"
     },
     {
-        q: "What is the common name for the gas $\\text{H}_2\\text{O}$?",
+        q: "What is the common name for the gas $\text{H}_2\text{O}$?",
         a: "Water",
         options: ["Oxygen", "Hydrogen Peroxide", "Water", "Methane"],
         category: "Science"
