@@ -10,15 +10,16 @@
  
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8000;
 
-app.get('/', (req, res) => {
-  res.send('Bot is online 24/7!');
+// This keeps Koyeb happy
+app.get('/', (req, res) => res.send('Bot is active!'));
+app.listen(process.env.PORT || 8000, () => {
+    console.log('Health check server is running on port 8000');
 });
 
-app.listen(port, () => {
-  console.log(`Health check server listening on port ${port}`);
-});
+// --- BELOW IS YOUR BOT CODE ---
+// (Your existing Satoru Gojo menu code and Baileys connection code goes here)
+
 
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, GroupSettingChange, WAMessageStubType, generateWAMessageFromContent } = require('@whiskeysockets/baileys');
 const pino = require('pino');
