@@ -392,20 +392,19 @@ const commands = {
 ━━━━━━━━━━━━━━━━━━━━━
 © ${new Date().getFullYear()} hybridbotzw | Powered by ${config.ownerName}`;
 
-            // Add picture attached on top of the menu command and audio after menu
-            await ctx.sock.sendMessage(ctx.from, {
-                image: { url: '/storage/emulated/0/Download/IMG-20240717-WA0004.jpg' },
-                caption: menuText
-            });
+            // Add picture of Satoru Gojo on top of the menu command
+await ctx.sock.sendMessage(ctx.from, {
+    image: { url: 'https://i.imgur.com/Dd3J1PS.jpg' }, // Super cool Gojo image URL
+    caption: menuText
+});
 
-            // FIXED: Sending actual file data buffer for storage audio
-            const audioPath = '/storage/emulated/0/Download/Ogryzek_-_AURA_Slowed__Official_Visualiser_.MP4(1)-39.mp3';
-            if (fs.existsSync(audioPath)) {
-                await ctx.sock.sendMessage(ctx.from, {
-                    audio: fs.readFileSync(audioPath),
-                    mimetype: 'audio/mpeg',
-                    fileName: 'Aura_Slowed.mp3'
-                });
+// Sending a 30-second background beat
+const audioUrl = 'https://cdn.pixabay.com/audio/2023/03/01/audio_12b2fa13_aac.mp3'; // Royalty-free cool beat
+await ctx.sock.sendMessage(ctx.from, {
+    audio: { url: audioUrl },
+    mimetype: 'audio/mpeg',
+    fileName: 'BackgroundBeat.mp3'
+});
             }
         }
     },
