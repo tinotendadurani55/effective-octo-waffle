@@ -15,7 +15,7 @@ auth_info_zim
 # Ignore downloaded or temporary files
 downloads
 *.log
-
+ 
 # Ignore Docker-related files
 Dockerfile
 .dockerignore
