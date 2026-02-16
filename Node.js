@@ -25,12 +25,12 @@ const os = require('os');
 // ═══════════════════════════════════════════════════════════════════
 
 const config = {
-    botName: 'Kidjustin-k',
-    ownerName: 't.Durani',
-    ownerNumber: '263777426534', 
-    prefix: '.',
-    mode: 'public',
-    reportNumber: '0777426534'
+    botName: process.env.BOT_NAME || 'Kidjustin-k',
+    ownerName: process.env.OWNER_NAME || 't.Durani',
+    ownerNumber: process.env.OWNER_NUMBER || '263777426534',
+    prefix: process.env.PREFIX || '.',
+    mode: process.env.MODE || 'public',
+    reportNumber: process.env.REPORT_NUMBER || '0777426534'
 };
 
 const ownerJid = config.ownerNumber + '@s.whatsapp.net';
