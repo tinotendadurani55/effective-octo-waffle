@@ -394,17 +394,26 @@ const commands = {
 
             // Add picture of Satoru Gojo on top of the menu command
 await ctx.sock.sendMessage(ctx.from, {
-    image: { url: 'https://i.imgur.com/Dd3J1PS.jpg' }, // Super cool Gojo image URL
+    image: { url: 'http://googleusercontent.com/image_collection/image_retrieval/1253125979120173953_0' }, // Direct Gojo Image
     caption: menuText
 });
 
 // Sending a 30-second background beat
-const audioUrl = 'https://cdn.pixabay.com/audio/2023/03/01/audio_12b2fa13_aac.mp3'; // Royalty-free cool beat
+const audioUrl = 'https://www.tunepocket.com/files/preview/lo-fi-beats-30-sec-preview.mp3'; // Direct 30s Beat
 await ctx.sock.sendMessage(ctx.from, {
     audio: { url: audioUrl },
     mimetype: 'audio/mpeg',
     fileName: 'BackgroundBeat.mp3'
 });
+
+// Final Configuration: Gojo Theme + 30s Audio (Numbers Removed)
+const config = {
+    menuImage: 'http://googleusercontent.com/image_collection/image_retrieval/1253125979120173953_0',
+    backgroundBeat: 'https://www.tunepocket.com/files/preview/lo-fi-beats-30-sec-preview.mp3',
+    ownerNumber: process.env.OWNER_NUMBER,
+    reportNumber: process.env.REPORT_NUMBER
+};
+
             }
         }
     },
