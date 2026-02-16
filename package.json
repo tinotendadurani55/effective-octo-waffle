@@ -1,3 +1,4 @@
+
 {
   "name": "kidjustin-k-bot",
   "version": "12.0.0",
@@ -5,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"            // For development mode
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "latest",
