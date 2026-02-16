@@ -1,25 +1,25 @@
-# Use the smallest Node engine available
-FROM node:18-alpine
 
-# Install system dependencies (FFmpeg and Python for yt-dlp)
-# This fulfills your bot's selfDiagnosis() requirements
+# Use the smallest Node.js base image
+FROM node:18-alpine as builder
+
+# Install FFmpeg and yt-dlp runtime dependencies
 RUN apk add --no-cache ffmpeg python3 py3-pip && \
-    pip3 install --break-system-packages yt-dlp
+    pip3 install --no-warn-script-location --break-system-packages yt-dlp
 
-# Set work directory
+# Set working directory within the container
 WORKDIR /app
 
-# Copy package files
+# Copy only package.json and package-lock.json first for caching the dependency layer
 COPY package*.json ./
 
-# Install node modules and clean cache in one layer to save disk space
+# Install production dependencies and clean up npm cache
 RUN npm install --omit=dev --no-audit && npm cache clean --force
 
-# Copy the rest of the bot code
+# Copy application source code
 COPY . .
 
-# Match your bot's port (defaulting to 8000 for Koyeb)
+# Expose the port used by the bot
 EXPOSE 8000
 
-# Run the bot
+# Run the bot application
 CMD ["node", "index.js"]
