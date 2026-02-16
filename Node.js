@@ -8,6 +8,18 @@
    ║ Refined by Gemini AI (Modern Baileys & Robust Checks)          ║
    ╚══════════════════════════════════════════════════════════════════╝ */
 
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 8000;
+
+app.get('/', (req, res) => {
+  res.send('Bot is online 24/7!');
+});
+
+app.listen(port, () => {
+  console.log(`Health check server listening on port ${port}`);
+});
+
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, GroupSettingChange, WAMessageStubType, generateWAMessageFromContent } = require('@whiskeysockets/baileys');
 const pino = require('pino');
 const qrcode = require('qrcode-terminal');
