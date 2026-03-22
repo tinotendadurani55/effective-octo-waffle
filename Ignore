@@ -1,0 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.pid.lock
+
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+
+# Package files installed globally/on system
+package-lock.json
+yarn.lock
+
+# FFmpeg cache
+ffmpeg-cache/
+
+# Temporary files and Downloads
+downloads/
+*.tmp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# Docker Ignore files or builds (if using Docker)
+Dockerfile*

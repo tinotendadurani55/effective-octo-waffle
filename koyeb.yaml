@@ -1,0 +1,8 @@
+build:
+  strategy: docker
+run:
+  commands:
+    - apt-get update && apt-get install -y ffmpeg python3 python3-pip
+    - pip3 install yt-dlp
+    - npm install
+    - node index.js

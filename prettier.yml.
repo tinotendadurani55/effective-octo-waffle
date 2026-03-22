@@ -1,0 +1,10 @@
+name: Prettier Check
+on: [push]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: creyom/prettier_action@main
+        with:
+          prettier_options: --write index.js

@@ -1,0 +1,21 @@
+
+# Ignore dependencies
+node_modules
+
+# Ignore Git files
+.git
+
+# Ignore sensitive config files
+.env
+
+# Ignore session/authentication files
+session
+auth_info_zim
+
+# Ignore downloaded or temporary files
+downloads
+*.log
+ 
+# Ignore Docker-related files
+Dockerfile
+.dockerignore

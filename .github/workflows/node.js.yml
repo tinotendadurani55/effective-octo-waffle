@@ -1,0 +1,46 @@
+name: WhatsApp Bot CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x] # Stable LTS versions only
+
+    steps:
+    # Step 1: Checkout the repository
+    - uses: actions/checkout@v4
+
+    # Step 2: Setup Node.js with appropriate version
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    # Step 3: Install Node.js dependencies
+    - name: Install Dependencies
+      run: npm ci
+
+    # Step 4: Lint the code for style issues (Optional)
+    - name: Lint Code
+      run: npm run lint --if-present
+
+    # Step 5: Run Tests
+    - name: Run Tests
+      run: npm test --if-present
+
+    # Step 6: Build the application (Optional)
+    - name: Build Application
+      run: npm run build --if-present
+
+    # Step 7: Log summary message
+    - name: Log Success
+      run: echo "CI Pipeline Completed Successfully for Node.js ${{ matrix.node-version }}"
