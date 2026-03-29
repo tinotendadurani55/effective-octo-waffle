@@ -1,5 +1,9 @@
 # 🤖 Kidjustin-k — WhatsApp Bot V13
 
+src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="https://rentry.co/Kidjustin-license">
+  </a>
+  <a
+
 > **Production-grade WhatsApp automation engine built on Baileys. Engineered for reliability, built for scale.**
 
 <p align="center">
