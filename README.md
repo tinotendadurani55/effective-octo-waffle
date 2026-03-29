@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/Version-13.0.0-800080?style=for-the-badge" alt="Version">
   </a>
   <a
-src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="https://rentry.co/Kidjustin-license">
+src="https://img.shields.io/github/license/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="https://rentry.co/Kidjustin-license">
   </a>
   <a href="https://github.com/tinotendadurani55/effective-octo-waffle/stargazers">
     <img src="https://img.shields.io/github/stars/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Stars">
