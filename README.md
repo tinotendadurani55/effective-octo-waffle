@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <img src="https://i.postimg.cc/RZR1Kmns/Untitled43-20240826162352.png" width="80%" alt="Kidjustin-k Banner">
+  <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="80%" alt="Kidjustin-k Banner">
 </p>
 
 ---
