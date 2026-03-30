@@ -8,7 +8,7 @@
   <b>Powered by Vortex Tech</b></p>
 
   <p>
-    <a href="https://rentry.co/Kidjustin-license">
+    <a href="https://rentry.co/t-Durani-LICENSE">
       <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
     </a>
     <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
