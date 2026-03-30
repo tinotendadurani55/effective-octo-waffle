@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
-    <img src="https://img.shields.io/badge/Version-13.0.0-800080?style=for-the-badge" alt="Version">
+    <img src="https://img.shields.io/badge/Versio-13.0.0-800080?style=for-the-badge" alt="Version">
   </a>
   <a
 
