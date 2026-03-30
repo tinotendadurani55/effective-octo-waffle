@@ -1,5 +1,28 @@
 # 🤖 Kidjustin-k — WhatsApp Bot V13 
 
+<p align="center">
+  <a href="https://rentry.co/Kidjustin-license">
+    <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
+  </a>
+
+  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
+    <img src="https://img.shields.io/badge/VERSION-v13.0.0--STABLE-blue?style=for-the-badge&logo=whatsapp" alt="Version">
+  </a>
+
+  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
+</p>
+
+<h1 align="center">🤖 KIDJUSTIN-K V13</h1>
+<p align="center"><i>The Master Planner's Ultimate WhatsApp Automation Suite</i></p>
+
+
+
+
+
+
+
+
+
 
 
 
