@@ -3,7 +3,7 @@
 
 <p align="center">
   <img
-src="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue"alt="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue">
+src="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue"alt="https://rentry.co/t.Durani-LICENSE">
   </a>
   <a
 
