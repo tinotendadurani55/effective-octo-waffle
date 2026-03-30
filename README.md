@@ -2,11 +2,11 @@
 
 
 <p align="center">
-  <img
+  <ahref="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
+    <img
 src="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue"alt="https://rentry.co/t.Durani-LICENSE">
   </a>
-  <a
-
+  
 
 
 > **Production-grade WhatsApp automation engine built on Baileys. Engineered for reliability, built for scale.**
