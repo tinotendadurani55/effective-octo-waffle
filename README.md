@@ -1,12 +1,13 @@
 # 🤖 Kidjustin-k — WhatsApp Bot V13
-
+  
 
 <p align="center">
-  <ahref="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
-    <img
-src="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue"alt="https://rentry.co/t.Durani-LICENSE">
+  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
+    <img src="https://img.shields.io/badge/Version-13.0.0-800080?style=for-the-badge" alt="Version">
   </a>
-  
+  <a
+
+
 
 
 > **Production-grade WhatsApp automation engine built on Baileys. Engineered for reliability, built for scale.**
