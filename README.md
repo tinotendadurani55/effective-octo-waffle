@@ -3,7 +3,7 @@
 
 <p align="center">
   <img
-src="https://rentry.co/Kidjustin-license"alt="li">
+src="https://rentry.co/t.Durani-LICENSE?style=for-the-badge&color=blue"alt="li">
   </a>
   <a
 
