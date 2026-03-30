@@ -1,11 +1,4 @@
-# 🤖 Kidjustin-k — WhatsApp Bot V13
-  
-
-<p align="center">
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
-    <img src="https://img.shields.io/badge/https://rentry.co/https://rentry.co/t.Durani-LICENSE?style=for-the-badge" alt="https://rentry.co/t.Durani-LICENSE">
-  </a>
-  <a
+# 🤖 Kidjustin-k — WhatsApp Bot V13 
 
 
 
