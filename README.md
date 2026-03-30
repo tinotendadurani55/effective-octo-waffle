@@ -1,53 +1,46 @@
-# 🤖 Kidjustin-k — WhatsApp Bot V13 
+<div align="center">
 
-<p align="center">
-  <a href="https://rentry.co/Kidjustin-license">
-    <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
-  </a>
+  <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="100%" alt="Kidjustin-k Banner">
+  <br><br>
 
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
-    <img src="https://img.shields.io/badge/VERSION-v13.0.0--STABLE-blue?style=for-the-badge&logo=whatsapp" alt="Version">
-  </a>
+  <h1>🤖 KIDJUSTIN-K V13</h1>
+  <p><i>The Master Planner's Ultimate WhatsApp Automation Suite</i><br>
+  <b>Powered by Vortex Tech</b></p>
 
-  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
-</p>
+  <p>
+    <a href="https://rentry.co/Kidjustin-license">
+      <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
+    </a>
+    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
+      <img src="https://img.shields.io/badge/VERSION-v13.0.0--STABLE-blue?style=for-the-badge&logo=whatsapp" alt="Version">
+    </a>
+    <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
+  </p>
 
-<h1 align="center">🤖 KIDJUSTIN-K V13</h1>
-<p align="center"><i>The Master Planner's Ultimate WhatsApp Automation Suite</i></p>
+  <p>
+    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/stargazers">
+      <img src="https://img.shields.io/github/stars/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Stars">
+    </a>
+    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
+      <img src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="Forks">
+    </a>
+    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/issues">
+      <img src="https://img.shields.io/github/issues/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=red" alt="Issues">
+    </a>
+  </p>
 
+  <p>
+    <img src="https://img.shields.io/badge/Node.js-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+    <img src="https://img.shields.io/badge/Platform-Koyeb%20%7C%20Termux-0055FF?style=for-the-badge" alt="Platform">
+  </p>
 
+  <br>
 
+  <blockquote>
+    <b>Production-grade WhatsApp automation engine built on Baileys.<br>Engineered for reliability, built for scale.</b>
+  </blockquote>
 
-
-
-
-
-
-
-
-
-> **Production-grade WhatsApp automation engine built on Baileys. Engineered for reliability, built for scale.**
-
-<p align="center">
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
-    <img src="https://img.shields.io/badge/Version-13.0.0-800080?style=for-the-badge" alt="Version">
-  </a>
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/stargazers">
-    <img src="https://img.shields.io/github/stars/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Stars">
-  </a>
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
-    <img src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="Forks">
-  </a>
-  <a href="https://github.com/tinotendadurani55/effective-octo-waffle/issues">
-    <img src="https://img.shields.io/github/issues/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=red" alt="Issues">
-  </a>
-  <img src="https://img.shields.io/badge/Node.js-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/Platform-Koyeb%20%7C%20Termux-0055FF?style=for-the-badge" alt="Platform">
-</p>
-
-<p align="center">
-  <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="80%" alt="Kidjustin-k Banner">
-</p>
+</div>
 
 ---
 
