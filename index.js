@@ -41,7 +41,7 @@ app.listen(process.env.PORT || 8000, () => {
 
 // --- 2. STANDARD IMPORTS ---
 const { 
-    default: makeWASocke, 
+    default: makeWASocket, 
     DisconnectReason, 
     useMultiFileAuthState, 
     fetchLatestBaileysVersion, 
