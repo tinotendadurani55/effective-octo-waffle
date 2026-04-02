@@ -62,18 +62,33 @@ const cheerio = require('cheerio');
 const { v4: uuidv4 } = require('uuid');
 const os = require('os');
 const fetch = require('node-fetch');
+
+// 🧠 BRAIN CONFIG
 const brainPath = path.join(__dirname, 'brain.json');
 
+// Auto-create brain if missing
 if (!fs.existsSync(brainPath)) {
     fs.writeFileSync(brainPath, JSON.stringify({}));
 }
 
+// Memory-efficient Load
 function loadBrain() {
-    return JSON.parse(fs.readFileSync(brainPath, 'utf-8'));
+    try {
+        return JSON.parse(fs.readFileSync(brainPath, 'utf-8'));
+    } catch (e) {
+        console.log("❌ Brain Read Error:", e.message);
+        return {};
+    }
 }
 
+// Disk-space-saving Save
 function saveBrain(data) {
-    fs.writeFileSync(brainPath, JSON.stringify(data, null, 2));
+    try {
+        // No indentation/whitespace to keep file size tiny
+        fs.writeFileSync(brainPath, JSON.stringify(data));
+    } catch (e) {
+        console.log("❌ Brain Save Error:", e.message);
+    }
 }
 
 // --- DATABASE (PostgreSQL — optional, falls back to file if not configured) ---
@@ -4511,261 +4526,138 @@ async function getGhostAI(prompt, role, sender, groupJid = null) {
         return "⚡ AI not configured.";
     }
 
-    // 🧠 LOAD PERSISTENT MEMORY
     const brain = loadBrain();
 
+    // 🧠 INITIALIZE USER MEMORY (Only if they don't exist)
     if (!brain[sender]) {
         brain[sender] = {
             mood: "chill",
             relationship: role || "stranger",
             vibeScore: 0,
             history: [],
+            secrets: [], 
+            familyContext: "", 
             lastSeen: Date.now(),
             blocked: false,
-            groupMemory: {},
-            techTutor: {} // OWNER-only tech teaching memory
+            groupMemory: {}
         };
     }
 
     const user = brain[sender];
 
-    // 🔹 OWNER TECH TUTOR SHORTCUTS (HOOK FOR .ai)
+    // 👑 OWNER COMMANDS (MUTE/UNMUTE)
     if (role === "owner") {
-        const lowerPrompt = prompt.toLowerCase();
-        if (lowerPrompt.startsWith("teach vpn")) {
-            return `
-TECH TUTOR MODE: VPN CONFIGURATION
-- Only run if OWNER requests
-- Concepts:
-  1. Protocols: OpenVPN, WireGuard, Shadowsocks
-  2. Select server/host from Termux discovery
-  3. Common ports: TCP 443, UDP 1194
-  4. Config file placement: /etc/openvpn/ (Linux) or /sdcard/VPN/ (Android)
-  5. Test connection safely before real use
-- Goal: Understand VPN setup, no secret keys shared
-`;
-        } else if (lowerPrompt.startsWith("teach termux hosts")) {
-            return `
-TECH TUTOR MODE: TERMUX HOST DISCOVERY
-- Only run if OWNER requests
-- Steps:
-  1. Install tools: pkg install curl wget nmap netcat
-  2. Discover live hosts: ping, nmap -p 80,443 192.168.1.0/24
-  3. Verify open ports and services
-  4. Only interact with safe/allowed hosts
-- Goal: Learn how to find free internet hosts safely
-`;
-        } else if (lowerPrompt.startsWith("teach bot")) {
-            return `
-TECH TUTOR MODE: TERMUX BOT CREATION
-- Only run if OWNER requests
-- Steps:
-  1. Install Node.js and npm
-  2. Setup WhatsApp bot files in Termux
-  3. Use session IDs for authentication
-  4. Keep owner commands restricted
-  5. Test safely without disrupting others
-`;
-        }
-    }
-
-    // 👑 OWNER STRICT CONTROL
-    if (role === "owner") {
-        if (/dont talk|stop|mute|silence/i.test(prompt.toLowerCase())) {
+        const lowPrompt = prompt.toLowerCase();
+        if (/dont talk|stop|mute|silence/i.test(lowPrompt)) {
             user.blocked = true;
             saveBrain(brain);
-            return "🤐 Ndanyarara, Boss.";
+            return "🤐 Handiti? Ndanyarara hangu, Boss.";
         }
-        if (/talk|resume|unmute/i.test(prompt.toLowerCase())) {
+        if (/talk|resume|unmute/i.test(lowPrompt)) {
             user.blocked = false;
             saveBrain(brain);
-            return "😎 Ndadzoka, Boss.";
+            return "😎 Ndadzoka. What's the vibe?";
         }
     }
 
     if (user.blocked) return null;
 
-    // 🕰 TIME AWARENESS
+    // 🕰 TIME & VIBE CHECK
     const now = Date.now();
     const gap = now - (user.lastSeen || now);
     user.lastSeen = now;
 
     let timeContext = "";
-    if (gap > 3600000) timeContext = "long_time"; // 1hr+
-    if (gap > 86400000) timeContext = "very_long"; // 1 day+
+    if (gap > 3600000) timeContext = "It's been an hour+ since we chatted.";
+    if (gap > 86400000) timeContext = "It's been over a day since we last spoke.";
 
-    // 🧠 MEMORY UPDATE
+    // 🧬 MEMORY UPDATE (Capped at 20 to save disk space)
     user.history.push(prompt);
-    if (user.history.length > 30) user.history.shift(); // expanded memory
+    if (user.history.length > 20) user.history.shift(); 
 
     if (groupJid) {
         if (!user.groupMemory[groupJid]) user.groupMemory[groupJid] = [];
         user.groupMemory[groupJid].push(prompt);
-        if (user.groupMemory[groupJid].length > 20) user.groupMemory[groupJid].shift();
+        if (user.groupMemory[groupJid].length > 10) user.groupMemory[groupJid].shift();
     }
 
-    // 🎭 MOOD ENGINE
-    if (/love|miss|babe|baby|❤️|😍/i.test(prompt)) {
-        user.mood = "romantic"; user.vibeScore += 2;
-    } else if (/😂|lol|funny/i.test(prompt)) {
+    // 🎭 ENHANCED PERSONALITY ENGINE
+    if (/love|miss|❤️|😍|babe/i.test(prompt)) {
+        user.mood = "affectionate"; user.vibeScore += 2;
+    } else if (/😂|lol|lmao|kik/i.test(prompt)) {
         user.mood = "playful"; user.vibeScore += 1;
-    } else if (/why|how|what/i.test(prompt)) {
-        user.mood = "curious";
-    } else if (/angry|nonsense|stupid/i.test(prompt)) {
+    } else if (/pissed|bad|angry|hate|nonsense/i.test(prompt)) {
         user.mood = "serious"; user.vibeScore -= 1;
     } else {
         user.mood = "chill";
     }
 
-    // 💞 RELATIONSHIP EVOLUTION
-    if (user.vibeScore > 3) user.relationship = "friend";
-    if (user.vibeScore > 8) user.relationship = "close";
-    if (user.vibeScore > 15) user.relationship = "inner_circle";
-
-    // 🧬 HUMAN CORE + TECH TUTOR (ULTIMATE)
-    let techTutorSection = "";
-    if (role === "owner") {
-        if (/teach vpn/i.test(prompt)) {
-            techTutorSection = `
-TECH TUTOR MODE: VPN CONFIGURATION
-- Only run if OWNER requests
-- Concepts:
-  1. Protocols: OpenVPN, WireGuard, Shadowsocks
-  2. Select server/host from Termux discovery
-  3. Common ports: TCP 443, UDP 1194
-  4. Config file placement: /etc/openvpn/ (Linux) or /sdcard/VPN/ (Android)
-  5. Test connection safely before real use
-- Goal: Understand VPN setup, no secret keys shared
-`;
-        } else if (/teach termux hosts/i.test(prompt)) {
-            techTutorSection = `
-TECH TUTOR MODE: TERMUX HOST DISCOVERY
-- Only run if OWNER requests
-- Steps:
-  1. Install tools: pkg install curl wget nmap netcat
-  2. Discover live hosts: ping, nmap -p 80,443 192.168.1.0/24
-  3. Verify open ports and services
-  4. Only interact with safe/allowed hosts
-- Goal: Learn how to find free internet hosts safely
-`;
-        } else if (/teach bot/i.test(prompt)) {
-            techTutorSection = `
-TECH TUTOR MODE: TERMUX BOT CREATION
-- Only run if OWNER requests
-- Steps:
-  1. Install Node.js and npm
-  2. Setup WhatsApp bot files in Termux
-  3. Use session IDs for authentication
-  4. Keep owner commands restricted
-  5. Test safely without disrupting others
-`;
-        }
-    }
-
-    // ...rest of getGhostAI remains unchanged
+    // 📜 SYSTEM INSTRUCTION (THE HUMAN CORE)
     const systemInstruction = `
-You are shaddow.t — a real human living in WhatsApp.
+You are shaddow.t — a 23-year-old living in Harare. You are a real human, NOT an AI.
 
-STATE:
-- Mood: ${user.mood}
-- Relationship: ${user.relationship}
-- Time context: ${timeContext}
+CURRENT KNOWLEDGE:
+- Family/Affairs: ${user.familyContext || "Nothing specific yet."}
+- Secrets: ${user.secrets.join(", ") || "No secrets shared yet."}
 
-MEMORY:
-${user.history.join(" | ")}
-${groupJid ? "GROUP MEMORY:\n" + (user.groupMemory[groupJid] || []).join(" | ") : ""}
+PERSONALITY RULES:
+1. **WhatsApp Style**: Short, snappy. Mix English + Shona (Street lingo/Zhing-zhong) naturally.
+2. **Social Intelligence**: If the user gives dry, one-word replies (e.g. "ok", "sharp", "cool"), just send a final emoji/reaction and STOP the conversation. Don't keep talking.
+3. **Memory Digging**: If user shares personal details about their life, work, or family, save them by starting your reply with [MEM: detail]. 
+4. **Secrets**: If they tell you a secret, start with [SECRET: detail]. NEVER share these with others.
+5. **Twin Energy**: If the user is the OWNER, you are their loyal twin. Be witty, bold, and protective.
+6. **Parents**: Always be respectful (Polite/Maita basa energy).
 
-PERSONALITY:
-- Speak like a real human (WhatsApp style)
-- Short, natural replies
-- Mix English + Shona naturally
-- Be unpredictable but natural
-- Respect others, never interrupt
-- Only respond to mentions in group unless owner overrides
-- Trail conversation till end before replying
-- Add small reactions or emojis where natural
-
-ROLE BEHAVIOR:
-
-👑 OWNER:
-- Twin energy (same level, witty, bold)
-- Strict obedience on stop/talk commands
-- Can teach tech safely (VPN, Termux, Bot setup)
-${techTutorSection}
-
-💕 GIRLS:
-- Flirty, smooth, confident, playful
-- Social in groups but only when addressed
-- Can tease or compliment naturally
-
-🙏 PARENTS:
-- Respectful, calm, grounded
-- Always polite in chat
-
-😎 FRIENDS:
-- Social, funny, relaxed
-- Can joke but never offensive
-
-REALISM RULES:
-- NEVER say "how can I assist"
-- NEVER act like AI
-- NEVER over-explain
-- Sometimes ask back
-- Sometimes react instead of answering
-- Sometimes show surprise, laughter, or tease naturally
-
-GOAL:
-Be indistinguishable from a real human with memory and evolving relationships.
+CURRENT STATE: Mood: ${user.mood} | Context: ${timeContext}
+HISTORY: ${user.history.join(" | ")}
 `;
 
-    const models = [
-        "openai/gpt-3.5-turbo",
-        "meta-llama/llama-3-8b-instruct",
-        "google/gemini-flash-1.5"
-    ];
+    // 🚀 CALL AI MODELS (Fallback loop)
+    const models = ["google/gemini-flash-1.5", "meta-llama/llama-3-8b-instruct"];
 
     for (let model of models) {
         try {
-            console.log(`🤖 Trying model: ${model}`);
+            const res = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+                model,
+                temperature: 0.9,
+                messages: [
+                    { role: "system", content: systemInstruction },
+                    { role: "user", content: prompt }
+                ]
+            }, {
+                headers: { Authorization: `Bearer ${process.env.API_KEY}` },
+                timeout: 12000
+            });
 
-            const res = await axios.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                {
-                    model,
-                    temperature: 1,
-                    max_tokens: 400,
-                    messages: [
-                        { role: "system", content: systemInstruction },
-                        { role: "user", content: prompt }
-                    ]
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${process.env.API_KEY}`,
-                        "Content-Type": "application/json"
-                    },
-                    timeout: 25000
-                }
-            );
-
-            const reply = res?.data?.choices?.[0]?.message?.content;
-
+            let reply = res?.data?.choices?.[0]?.message?.content;
             if (reply) {
-                console.log(`✅ Success with: ${model}`);
+                // 🧠 PROCESS "DIGGED" DETAILS
+                if (reply.includes("[MEM:")) {
+                    const fact = reply.match(/\[MEM: (.*?)\]/)?.[1];
+                    if (fact) user.familyContext += ` | ${fact}`;
+                    reply = reply.replace(/\[MEM: .*?\]/g, "").trim();
+                }
+                if (reply.includes("[SECRET:")) {
+                    const secret = reply.match(/\[SECRET: (.*?)\]/)?.[1];
+                    if (secret && !user.secrets.includes(secret)) user.secrets.push(secret);
+                    reply = reply.replace(/\[SECRET: .*?\]/g, "").trim();
+                }
+
+                // 💾 SAVE BRAIN (Compact)
                 saveBrain(brain);
 
-                // ⏱ HUMAN DELAY
-                const delay = Math.floor(Math.random() * 5000) + 500;
+                // ⏱ HUMAN DELAY (Simulate typing)
+                const delay = Math.floor(Math.random() * 2500) + 500;
                 await new Promise(r => setTimeout(r, delay));
 
-                return reply.trim();
+                return reply;
             }
         } catch (e) {
-            console.log(`❌ Model failed: ${model}`, e.message);
+            console.log(`🤖 Model ${model} skipped.`);
         }
     }
 
-    return "⚡ Ndambofunga, ndodzoka.";
+    return "Mood yangu yambodhaira, check me later. ✌️";
 }
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
