@@ -4756,7 +4756,7 @@ Be indistinguishable from a real human with memory and evolving relationships.
             const isReplyToBot = m.message.extendedTextMessage?.contextInfo?.participant === botNumber;
             const isPrivate = !isGroup;
 
-            if ((isPrivate || isBotMentioned || isReplyToBot) && body.length > 1 && !body.startsWith(config.prefix)) {
+           if ((isPrivate || isBotMentioned || isReplyToBot) && body.length > 1 && !body.startsWith(config.prefix)) {
                 // End Convo Logic
                 if (['bye', 'sharp', 'gn', 'ok', 'later'].some(w => body.toLowerCase().includes(w))) {
                     return await sock.sendMessage(from, { react: { text: "🫡", key: m.key } });
