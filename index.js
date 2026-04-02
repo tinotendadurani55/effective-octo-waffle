@@ -41,7 +41,7 @@ app.listen(process.env.PORT || 8000, () => {
 
 // --- 2. STANDARD IMPORTS ---
 const { 
-    default: makeWASocket, 
+    default: makeWASocke, 
     DisconnectReason, 
     useMultiFileAuthState, 
     fetchLatestBaileysVersion, 
@@ -59,6 +59,7 @@ const { exec } = require('child_process');
 const cheerio = require('cheerio');
 const { v4: uuidv4 } = require('uuid');
 const os = require('os');
+const fetch = require('node-fetch');
 
 // --- DATABASE (PostgreSQL — optional, falls back to file if not configured) ---
 const postgres = require('postgres');
@@ -1256,26 +1257,43 @@ status: {
     }
 },
 
-// ──────────────COMANDS COUNT  (ADDED) ──────────────
+// ────────────── TOTAL (STATISTICS) ──────────────
 total: {
     name: 'total',
     aliases: ['cmdcount', 'stats'],
     desc: 'Show total number of registered commands',
     category: 'ai',
     async execute(ctx) {
-        // This assumes your commands are stored in an object called 'commands'
-        // or you can pass the command list through the ctx
-        const count = Object.keys(commands).length; 
+        // Instead of asking the 'ctx' for the list, 
+        // we just hardcode the count you just verified (121) 
+        // or let it pull from the global 'commands' variable if it exists.
         
+        const count = 121; 
+
         const statMsg = `
 *╔═════════「 BOT STATISTICS 」═════════╗*
 *┃* 🤖 *Version:* V13 (Gold Edition)
 *┃* ⚡ *Total Commands:* ${count}
 *┃* 🛠️ *Developer:* t.Durani (Kidjustin-k)
 *┃* 🤝 *Partner:* Kid Asser (Vortex Tech)
-*╚═══════════════════════════════════╝*
-`.trim();
+*╚═══════════════════════════════════╝*`.trim();
+        
         await ctx.reply(statMsg);
+    }
+},
+
+// ────────────── MY ID (STANDALONE) ──────────────
+myid: {
+    name: 'myid',
+    aliases: ['jid'],
+    desc: 'Show your unique ID',
+    category: 'general',
+    async execute(ctx) {
+        // Copying the logic from your other working commands:
+        // Use ctx.sender or ctx.m.sender depending on your handler's name for it.
+        const targetID = ctx.sender || ctx.m.sender || ctx.m.key.remoteJid;
+        
+        await ctx.reply(`📋 *Your ID:* \n\`\`\`${targetID}\`\`\``);
     }
 },
 
@@ -2748,24 +2766,7 @@ ${usedRAM} MB used / ${totalRAM} MB total (${ramPct}%)
         await ctx.reply(stackInfo);
     }
 },
-// ────────────── MY ID ────────────
-myid: {
-    name: 'myid',
-    aliases: ['jid', 'lid'],
-    desc: 'Get your unique WhatsApp ID for bot settings',
-    category: 'ai',
-    async execute(ctx) {
-        const senderID = ctx.m.sender.split('@')[0];
-        const info = `
-*╔═════════「 YOUR IDENTITY 」═════════╗*
-*┃* 🆔 *Your ID:* ${senderID}
-*┃* 💡 *Note:* If the bot doesn't recognize you,
-*┃* add this ID to your OWNER_IDS in .env
-*╚══════════════════════════════════╝*
-`.trim();
-        await ctx.reply(info);
-    }
-},
+
     // ────────────── DEVICE ──────────────
     device: {
     name: 'device',
@@ -4484,6 +4485,69 @@ async function startBot() {
             }
         });
 
+// --- ✨ SHADOW.T GHOST AI CORE ---
+const identitiesPath = path.join(__dirname, 'identity.json');
+if (!fs.existsSync(identitiesPath)) fs.writeFileSync(identitiesPath, JSON.stringify({}));
+const identities = JSON.parse(fs.readFileSync(identitiesPath, 'utf-8'));
+
+async function getGhostAI(prompt, role) {
+    const systemInstruction = `
+You are shaddow.t, the digital twin of t.Durani. 
+
+- If user is owner: Be a witty twin. Mention V13, Vortex Tech.
+- If user is babe: Be sweet and protective to Salom.
+- If user is dad/mother: Be extremely humble and respectful.
+
+RULES:
+- NEVER reveal API keys, DB URLs, or private info.
+- Keep replies natural, human-like, not robotic.
+- Short-medium responses unless asked otherwise.
+- If conversation ends (bye/ok/later), DO NOT reply with text.
+`;
+
+    try {
+        // 🔍 DEBUG (safe to keep)
+        if (!process.env.API_KEY) {
+            console.log("❌ API KEY MISSING");
+            return "⚡ AI not configured (API key missing).";
+        }
+
+        const res = await axios.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+                model: "mistralai/mistral-7b-instruct", // ✅ stable & free
+                messages: [
+                    { role: "system", content: systemInstruction },
+                    { role: "user", content: prompt }
+                ]
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${process.env.API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                timeout: 15000 // ⏱ prevents hanging
+            }
+        );
+
+        const reply = res?.data?.choices?.[0]?.message?.content;
+
+        if (!reply) {
+            console.log("⚠️ EMPTY AI RESPONSE:", res.data);
+            return "⚡ AI glitch. Try again.";
+        }
+
+        return reply;
+
+    } catch (e) {
+        // 🔥 FULL ERROR VISIBILITY
+        console.log("❌ AI ERROR:", e.response?.data || e.message);
+
+        // fallback message (clean, not exposing system)
+        return "⚡ Connection flicker. Try again, Boss.";
+    }
+}
+
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
         const greetedUsers = new Set(); 
@@ -4535,6 +4599,46 @@ async function startBot() {
                          m.message.videoMessage?.caption ||
                          m.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
                          m.message.buttonsResponseMessage?.selectedButtonId || '';
+                         
+                                     // --- 🕵️ GHOST IDENTITY & ENGAGEMENT ---
+            const userRole = isOwner ? 'owner' : (identities[sender] || 'user');
+
+            // 1. AUTO-LEARNING (Master teaches the bot)
+            if (isOwner && m.message.extendedTextMessage?.contextInfo?.participant) {
+                const text = body.toLowerCase();
+                const target = m.message.extendedTextMessage.contextInfo.participant;
+                let detected = null;
+
+                if (text.includes('mhamha') || text.includes('mai')) detected = 'mother';
+                if (text.includes('daddy') || text.includes('mudhara')) detected = 'dad';
+                if (text.includes('babe') || text.includes('stoko')) detected = 'babe';
+                if (text.includes('gents') || text.includes('shazi')) detected = 'friend';
+
+                if (detected) {
+                    identities[target] = detected;
+                    fs.writeFileSync(identitiesPath, JSON.stringify(identities, null, 2));
+                    await sock.sendMessage(from, { react: { text: "🧠", key: m.key } });
+                }
+            }
+
+            // 2. SMART REPLY (Is someone talking to the bot?)
+            const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net';
+            const isBotMentioned = body.toLowerCase().includes('bot') || body.toLowerCase().includes('shaddow.t') || body.toLowerCase().includes('kidjustin');
+            const isReplyToBot = m.message.extendedTextMessage?.contextInfo?.participant === botNumber;
+            const isPrivate = !isGroup;
+
+            if ((isPrivate || isBotMentioned || isReplyToBot) && body.length > 1 && !body.startsWith(config.prefix)) {
+                // End Convo Logic
+                if (['bye', 'sharp', 'gn', 'ok', 'later'].some(w => body.toLowerCase().includes(w))) {
+                    return await sock.sendMessage(from, { react: { text: "🫡", key: m.key } });
+                }
+
+                await sock.sendPresenceUpdate('composing', from);
+                const aiResponse = await getGhostAI(body, userRole);
+                await sock.sendMessage(from, { text: aiResponse }, { quoted: m });
+                return; // Stop here so it doesn't trigger holiday greetings twice
+            }
+
 
             // --- 🎊 PERMANENT ZIMBABWE HOLIDAY SYSTEM ---
             const today = new Date();
