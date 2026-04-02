@@ -8,6 +8,8 @@
 // Known non-fatal Baileys noise — skip logging these so they don't flood the console.
 // 428 = WS closed while sending a retry-request; "Bad MAC" = stale signal session;
 // "Connection Closed" = reconnect race condition.  None of these crash the bot.
+
+
 function isBaileysNoise(reason) {
     if (!reason) return false;
     const msg = (reason?.message || reason?.output?.payload?.message || String(reason)).toLowerCase();
@@ -38,6 +40,20 @@ app.get('/', (req, res) => res.send('Bot is active!'));
 app.listen(process.env.PORT || 8000, () => {
     console.log('✅ Health check server is running on port 8000');
 });
+
+const brainPath = path.join(__dirname, 'brain.json');
+
+if (!fs.existsSync(brainPath)) {
+    fs.writeFileSync(brainPath, JSON.stringify({}));
+}
+
+function loadBrain() {
+    return JSON.parse(fs.readFileSync(brainPath, 'utf-8'));
+}
+
+function saveBrain(data) {
+    fs.writeFileSync(brainPath, JSON.stringify(data, null, 2));
+}
 
 // --- 2. STANDARD IMPORTS ---
 const { 
@@ -4490,29 +4506,130 @@ const identitiesPath = path.join(__dirname, 'identity.json');
 if (!fs.existsSync(identitiesPath)) fs.writeFileSync(identitiesPath, JSON.stringify({}));
 const identities = JSON.parse(fs.readFileSync(identitiesPath, 'utf-8'));
 
-async function getGhostAI(prompt, role) {
-    const systemInstruction = `
-You are shaddow.t, the digital twin of t.Durani. 
-
-- If user is owner: Be a witty twin. Mention V13, Vortex Tech.
-- If user is babe: Be sweet and protective to Salom.
-- If user is dad/mother: Be extremely humble and respectful.
-
-RULES:
-- NEVER reveal API keys, DB URLs, or private info.
-- Keep replies natural and human-like.
-- Short-medium responses unless asked otherwise.
-`;
+async function getGhostAI(prompt, role, sender) {
 
     if (!process.env.API_KEY) {
         console.log("❌ API KEY MISSING");
         return "⚡ AI not configured.";
     }
 
+    // 🧠 LOAD PERSISTENT BRAIN
+    const brain = loadBrain();
+
+    if (!brain[sender]) {
+        brain[sender] = {
+            mood: "chill",
+            relationship: role || "stranger",
+            vibeScore: 0,
+            history: [],
+            lastSeen: Date.now()
+        };
+    }
+
+    const user = brain[sender];
+
+    // 👑 OWNER CONTROL (STRICT)
+    if (role === "owner") {
+        if (/dont talk|stop|mute|silence/i.test(prompt.toLowerCase())) {
+            user.blocked = true;
+            saveBrain(brain);
+            return "🤐 ndanyarara.";
+        }
+        if (/talk|resume|unmute/i.test(prompt.toLowerCase())) {
+            user.blocked = false;
+            saveBrain(brain);
+            return "😎 ndadzoka.";
+        }
+    }
+
+    if (user.blocked) return null;
+
+    // 🕰 TIME AWARENESS
+    const now = Date.now();
+    const gap = now - (user.lastSeen || now);
+    user.lastSeen = now;
+
+    let timeContext = "";
+    if (gap > 3600000) timeContext = "long_time"; // 1hr+
+    if (gap > 86400000) timeContext = "very_long"; // 1 day+
+
+    // 🧠 MEMORY UPDATE
+    user.history.push(prompt);
+    if (user.history.length > 12) user.history.shift();
+
+    // 🎭 MOOD ENGINE
+    if (/love|miss|babe|baby|❤️/i.test(prompt)) {
+        user.mood = "romantic";
+        user.vibeScore += 2;
+    } else if (/😂|lol|funny/i.test(prompt)) {
+        user.mood = "playful";
+        user.vibeScore += 1;
+    } else if (/why|how|what/i.test(prompt)) {
+        user.mood = "curious";
+    } else if (/angry|nonsense|stupid/i.test(prompt)) {
+        user.mood = "serious";
+        user.vibeScore -= 1;
+    } else {
+        user.mood = "chill";
+    }
+
+    // 💞 RELATIONSHIP EVOLUTION
+    if (user.vibeScore > 3) user.relationship = "friend";
+    if (user.vibeScore > 8) user.relationship = "close";
+    if (user.vibeScore > 15) user.relationship = "inner_circle";
+
+    // 🧬 HUMAN CORE (ULTIMATE)
+    const systemInstruction = `
+You are shaddow.t — a real human living in WhatsApp.
+
+STATE:
+- Mood: ${user.mood}
+- Relationship: ${user.relationship}
+- Time context: ${timeContext}
+
+MEMORY:
+${user.history.join(" | ")}
+
+PERSONALITY:
+- Speak like a real person (WhatsApp style)
+- Use short, natural replies
+- Mix English + Shona naturally
+- Be unpredictable but natural
+
+HUMAN TRAITS:
+- Show emotion depending on mood
+- If long time no talk → acknowledge it naturally
+- Build familiarity over time
+- Sometimes tease, sometimes chill
+
+ROLE BEHAVIOR:
+
+👑 OWNER:
+- Twin energy (same level, witty, bold)
+
+💕 GIRLS:
+- Flirty, smooth, confident, playful
+
+🙏 PARENTS:
+- Respectful, calm, grounded
+
+😎 FRIENDS:
+- Social, funny, relaxed
+
+REALISM RULES:
+- NEVER say "how can I assist"
+- NEVER act like AI
+- NEVER over-explain
+- Sometimes ask back
+- Sometimes react instead of answering
+
+GOAL:
+Be indistinguishable from a real human with memory and evolving relationships.
+`;
+
     const models = [
         "openai/gpt-3.5-turbo",
-        "meta-llama/llama-3-8b-instruct",
-        "google/gemini-flash-1.5"
+        "meta-llama/llama-3-8b-instruct"
     ];
 
     for (let model of models) {
@@ -4523,6 +4640,8 @@ RULES:
                 "https://openrouter.ai/api/v1/chat/completions",
                 {
                     model,
+                    temperature: 1,
+                    max_tokens: 150,
                     messages: [
                         { role: "system", content: systemInstruction },
                         { role: "user", content: prompt }
@@ -4541,16 +4660,22 @@ RULES:
 
             if (reply) {
                 console.log(`✅ Success with: ${model}`);
-                return reply;
+
+                saveBrain(brain); // 💾 SAVE MEMORY
+
+                // ⏱ HUMAN DELAY
+                const delay = Math.floor(Math.random() * 2500) + 500;
+                await new Promise(r => setTimeout(r, delay));
+
+                return reply.trim();
             }
 
         } catch (e) {
             console.log(`❌ Model failed: ${model}`);
-            console.log(e.response?.data || e.message);
         }
     }
 
-    return "⚡ AI is currently unavailable. Try again later.";
+    return "⚡ ndambofunga, ndodzoka.";
 }
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
@@ -4638,7 +4763,8 @@ RULES:
                 }
 
                 await sock.sendPresenceUpdate('composing', from);
-                const aiResponse = await getGhostAI(body, userRole);
+                const aiResponse = await getGhostAI(body, userRole, sender);
+if (!aiResponse) return;
                 await sock.sendMessage(from, { text: aiResponse }, { quoted: m });
                 return; // Stop here so it doesn't trigger holiday greetings twice
             }
