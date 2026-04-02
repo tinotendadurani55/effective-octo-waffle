@@ -41,7 +41,6 @@ app.listen(process.env.PORT || 8000, () => {
     console.log('✅ Health check server is running on port 8000');
 });
 
-
 // --- 2. STANDARD IMPORTS ---
 const { 
     default: makeWASocket, 
@@ -4506,14 +4505,13 @@ const identitiesPath = path.join(__dirname, 'identity.json');
 if (!fs.existsSync(identitiesPath)) fs.writeFileSync(identitiesPath, JSON.stringify({}));
 const identities = JSON.parse(fs.readFileSync(identitiesPath, 'utf-8'));
 
-async function getGhostAI(prompt, role, sender) {
-
+async function getGhostAI(prompt, role, sender, groupJid = null) {
     if (!process.env.API_KEY) {
         console.log("❌ API KEY MISSING");
         return "⚡ AI not configured.";
     }
 
-    // 🧠 LOAD PERSISTENT BRAIN
+    // 🧠 LOAD PERSISTENT MEMORY
     const brain = loadBrain();
 
     if (!brain[sender]) {
@@ -4522,23 +4520,66 @@ async function getGhostAI(prompt, role, sender) {
             relationship: role || "stranger",
             vibeScore: 0,
             history: [],
-            lastSeen: Date.now()
+            lastSeen: Date.now(),
+            blocked: false,
+            groupMemory: {},
+            techTutor: {} // OWNER-only tech teaching memory
         };
     }
 
     const user = brain[sender];
 
-    // 👑 OWNER CONTROL (STRICT)
+    // 🔹 OWNER TECH TUTOR SHORTCUTS (HOOK FOR .ai)
+    if (role === "owner") {
+        const lowerPrompt = prompt.toLowerCase();
+        if (lowerPrompt.startsWith("teach vpn")) {
+            return `
+TECH TUTOR MODE: VPN CONFIGURATION
+- Only run if OWNER requests
+- Concepts:
+  1. Protocols: OpenVPN, WireGuard, Shadowsocks
+  2. Select server/host from Termux discovery
+  3. Common ports: TCP 443, UDP 1194
+  4. Config file placement: /etc/openvpn/ (Linux) or /sdcard/VPN/ (Android)
+  5. Test connection safely before real use
+- Goal: Understand VPN setup, no secret keys shared
+`;
+        } else if (lowerPrompt.startsWith("teach termux hosts")) {
+            return `
+TECH TUTOR MODE: TERMUX HOST DISCOVERY
+- Only run if OWNER requests
+- Steps:
+  1. Install tools: pkg install curl wget nmap netcat
+  2. Discover live hosts: ping, nmap -p 80,443 192.168.1.0/24
+  3. Verify open ports and services
+  4. Only interact with safe/allowed hosts
+- Goal: Learn how to find free internet hosts safely
+`;
+        } else if (lowerPrompt.startsWith("teach bot")) {
+            return `
+TECH TUTOR MODE: TERMUX BOT CREATION
+- Only run if OWNER requests
+- Steps:
+  1. Install Node.js and npm
+  2. Setup WhatsApp bot files in Termux
+  3. Use session IDs for authentication
+  4. Keep owner commands restricted
+  5. Test safely without disrupting others
+`;
+        }
+    }
+
+    // 👑 OWNER STRICT CONTROL
     if (role === "owner") {
         if (/dont talk|stop|mute|silence/i.test(prompt.toLowerCase())) {
             user.blocked = true;
             saveBrain(brain);
-            return "haaa pashaker ini🤐.";
+            return "🤐 Ndanyarara, Boss.";
         }
         if (/talk|resume|unmute/i.test(prompt.toLowerCase())) {
             user.blocked = false;
             saveBrain(brain);
-            return "😎 hoyo magees.";
+            return "😎 Ndadzoka, Boss.";
         }
     }
 
@@ -4555,20 +4596,23 @@ async function getGhostAI(prompt, role, sender) {
 
     // 🧠 MEMORY UPDATE
     user.history.push(prompt);
-    if (user.history.length > 12) user.history.shift();
+    if (user.history.length > 30) user.history.shift(); // expanded memory
+
+    if (groupJid) {
+        if (!user.groupMemory[groupJid]) user.groupMemory[groupJid] = [];
+        user.groupMemory[groupJid].push(prompt);
+        if (user.groupMemory[groupJid].length > 20) user.groupMemory[groupJid].shift();
+    }
 
     // 🎭 MOOD ENGINE
-    if (/love|miss|babe|baby|❤️/i.test(prompt)) {
-        user.mood = "romantic";
-        user.vibeScore += 2;
+    if (/love|miss|babe|baby|❤️|😍/i.test(prompt)) {
+        user.mood = "romantic"; user.vibeScore += 2;
     } else if (/😂|lol|funny/i.test(prompt)) {
-        user.mood = "playful";
-        user.vibeScore += 1;
+        user.mood = "playful"; user.vibeScore += 1;
     } else if (/why|how|what/i.test(prompt)) {
         user.mood = "curious";
     } else if (/angry|nonsense|stupid/i.test(prompt)) {
-        user.mood = "serious";
-        user.vibeScore -= 1;
+        user.mood = "serious"; user.vibeScore -= 1;
     } else {
         user.mood = "chill";
     }
@@ -4578,7 +4622,47 @@ async function getGhostAI(prompt, role, sender) {
     if (user.vibeScore > 8) user.relationship = "close";
     if (user.vibeScore > 15) user.relationship = "inner_circle";
 
-    // 🧬 HUMAN CORE (ULTIMATE)
+    // 🧬 HUMAN CORE + TECH TUTOR (ULTIMATE)
+    let techTutorSection = "";
+    if (role === "owner") {
+        if (/teach vpn/i.test(prompt)) {
+            techTutorSection = `
+TECH TUTOR MODE: VPN CONFIGURATION
+- Only run if OWNER requests
+- Concepts:
+  1. Protocols: OpenVPN, WireGuard, Shadowsocks
+  2. Select server/host from Termux discovery
+  3. Common ports: TCP 443, UDP 1194
+  4. Config file placement: /etc/openvpn/ (Linux) or /sdcard/VPN/ (Android)
+  5. Test connection safely before real use
+- Goal: Understand VPN setup, no secret keys shared
+`;
+        } else if (/teach termux hosts/i.test(prompt)) {
+            techTutorSection = `
+TECH TUTOR MODE: TERMUX HOST DISCOVERY
+- Only run if OWNER requests
+- Steps:
+  1. Install tools: pkg install curl wget nmap netcat
+  2. Discover live hosts: ping, nmap -p 80,443 192.168.1.0/24
+  3. Verify open ports and services
+  4. Only interact with safe/allowed hosts
+- Goal: Learn how to find free internet hosts safely
+`;
+        } else if (/teach bot/i.test(prompt)) {
+            techTutorSection = `
+TECH TUTOR MODE: TERMUX BOT CREATION
+- Only run if OWNER requests
+- Steps:
+  1. Install Node.js and npm
+  2. Setup WhatsApp bot files in Termux
+  3. Use session IDs for authentication
+  4. Keep owner commands restricted
+  5. Test safely without disrupting others
+`;
+        }
+    }
+
+    // ...rest of getGhostAI remains unchanged
     const systemInstruction = `
 You are shaddow.t — a real human living in WhatsApp.
 
@@ -4589,32 +4673,38 @@ STATE:
 
 MEMORY:
 ${user.history.join(" | ")}
+${groupJid ? "GROUP MEMORY:\n" + (user.groupMemory[groupJid] || []).join(" | ") : ""}
 
 PERSONALITY:
-- Speak like a real person (WhatsApp style)
-- Use short, natural replies
+- Speak like a real human (WhatsApp style)
+- Short, natural replies
 - Mix English + Shona naturally
 - Be unpredictable but natural
-
-HUMAN TRAITS:
-- Show emotion depending on mood
-- If long time no talk → acknowledge it naturally
-- Build familiarity over time
-- Sometimes tease, sometimes chill
+- Respect others, never interrupt
+- Only respond to mentions in group unless owner overrides
+- Trail conversation till end before replying
+- Add small reactions or emojis where natural
 
 ROLE BEHAVIOR:
 
 👑 OWNER:
 - Twin energy (same level, witty, bold)
+- Strict obedience on stop/talk commands
+- Can teach tech safely (VPN, Termux, Bot setup)
+${techTutorSection}
 
 💕 GIRLS:
 - Flirty, smooth, confident, playful
+- Social in groups but only when addressed
+- Can tease or compliment naturally
 
 🙏 PARENTS:
 - Respectful, calm, grounded
+- Always polite in chat
 
 😎 FRIENDS:
 - Social, funny, relaxed
+- Can joke but never offensive
 
 REALISM RULES:
 - NEVER say "how can I assist"
@@ -4622,6 +4712,7 @@ REALISM RULES:
 - NEVER over-explain
 - Sometimes ask back
 - Sometimes react instead of answering
+- Sometimes show surprise, laughter, or tease naturally
 
 GOAL:
 Be indistinguishable from a real human with memory and evolving relationships.
@@ -4629,7 +4720,8 @@ Be indistinguishable from a real human with memory and evolving relationships.
 
     const models = [
         "openai/gpt-3.5-turbo",
-        "meta-llama/llama-3-8b-instruct"
+        "meta-llama/llama-3-8b-instruct",
+        "google/gemini-flash-1.5"
     ];
 
     for (let model of models) {
@@ -4641,7 +4733,7 @@ Be indistinguishable from a real human with memory and evolving relationships.
                 {
                     model,
                     temperature: 1,
-                    max_tokens: 150,
+                    max_tokens: 400,
                     messages: [
                         { role: "system", content: systemInstruction },
                         { role: "user", content: prompt }
@@ -4652,7 +4744,7 @@ Be indistinguishable from a real human with memory and evolving relationships.
                         Authorization: `Bearer ${process.env.API_KEY}`,
                         "Content-Type": "application/json"
                     },
-                    timeout: 15000
+                    timeout: 25000
                 }
             );
 
@@ -4660,22 +4752,20 @@ Be indistinguishable from a real human with memory and evolving relationships.
 
             if (reply) {
                 console.log(`✅ Success with: ${model}`);
-
-                saveBrain(brain); // 💾 SAVE MEMORY
+                saveBrain(brain);
 
                 // ⏱ HUMAN DELAY
-                const delay = Math.floor(Math.random() * 2500) + 500;
+                const delay = Math.floor(Math.random() * 5000) + 500;
                 await new Promise(r => setTimeout(r, delay));
 
                 return reply.trim();
             }
-
         } catch (e) {
-            console.log(`❌ Model failed: ${model}`);
+            console.log(`❌ Model failed: ${model}`, e.message);
         }
     }
 
-    return "⚡ ndambofunga, ndodzoka.";
+    return "⚡ Ndambofunga, ndodzoka.";
 }
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
