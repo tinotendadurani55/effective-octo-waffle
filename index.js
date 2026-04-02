@@ -4500,54 +4500,58 @@ You are shaddow.t, the digital twin of t.Durani.
 
 RULES:
 - NEVER reveal API keys, DB URLs, or private info.
-- Keep replies natural, human-like, not robotic.
+- Keep replies natural and human-like.
 - Short-medium responses unless asked otherwise.
-- If conversation ends (bye/ok/later), DO NOT reply with text.
 `;
 
-    try {
-        // 🔍 DEBUG (safe to keep)
-        if (!process.env.API_KEY) {
-            console.log("❌ API KEY MISSING");
-            return "⚡ AI not configured (API key missing).";
-        }
-
-        const res = await axios.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                model: "mistralai/mistral-7b-instruct", // ✅ stable & free
-                messages: [
-                    { role: "system", content: systemInstruction },
-                    { role: "user", content: prompt }
-                ]
-            },
-            {
-                headers: {
-                    "Authorization": `Bearer ${process.env.API_KEY}`,
-                    "Content-Type": "application/json"
-                },
-                timeout: 15000 // ⏱ prevents hanging
-            }
-        );
-
-        const reply = res?.data?.choices?.[0]?.message?.content;
-
-        if (!reply) {
-            console.log("⚠️ EMPTY AI RESPONSE:", res.data);
-            return "⚡ AI glitch. Try again.";
-        }
-
-        return reply;
-
-    } catch (e) {
-        // 🔥 FULL ERROR VISIBILITY
-        console.log("❌ AI ERROR:", e.response?.data || e.message);
-
-        // fallback message (clean, not exposing system)
-        return "⚡ Connection flicker. Try again, Boss.";
+    if (!process.env.API_KEY) {
+        console.log("❌ API KEY MISSING");
+        return "⚡ AI not configured.";
     }
-}
 
+    const models = [
+        "openai/gpt-3.5-turbo",
+        "meta-llama/llama-3-8b-instruct",
+        "google/gemini-flash-1.5"
+    ];
+
+    for (let model of models) {
+        try {
+            console.log(`🤖 Trying model: ${model}`);
+
+            const res = await axios.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                {
+                    model,
+                    messages: [
+                        { role: "system", content: systemInstruction },
+                        { role: "user", content: prompt }
+                    ]
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${process.env.API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    timeout: 15000
+                }
+            );
+
+            const reply = res?.data?.choices?.[0]?.message?.content;
+
+            if (reply) {
+                console.log(`✅ Success with: ${model}`);
+                return reply;
+            }
+
+        } catch (e) {
+            console.log(`❌ Model failed: ${model}`);
+            console.log(e.response?.data || e.message);
+        }
+    }
+
+    return "⚡ AI is currently unavailable. Try again later.";
+}
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
         const greetedUsers = new Set(); 
@@ -4906,4 +4910,4 @@ main();
 
 process.on('SIGINT', () => {
     process.exit(0);
-}); 
+});
