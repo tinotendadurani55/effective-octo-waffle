@@ -1248,56 +1248,47 @@ https://whatsapp.com/channel/0029Vb1JJlR9WtBzWg26wi3e
         }
     },
 
+// ────────────── STATUS (WORKING) ──────────────
 status: { 
     name: 'status',
     aliases: ['device', 'system'],
     desc: 'Show bot performance and server status',
     category: 'ai',
     async execute(ctx) {
-    const { sock, from, m: msg } = ctx;
-        // 1. Calculate Uptime
+        const { sock, from, m: msg } = ctx;
         const uptimeSeconds = process.uptime();
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = Math.floor(uptimeSeconds % 60);
 
-        // 2. RAM Usage (Resident Set Size)
         const usedRam = (process.memoryUsage().rss / 1024 / 1024).toFixed(2);
         const totalRam = (os.totalmem() / 1024 / 1024).toFixed(2);
         const ramPercent = ((usedRam / totalRam) * 100).toFixed(1);
-
-        // 3. Platform Info
-        const platform = os.platform(); // 'linux' on Koyeb
-        const cpuModel = os.cpus()[0].model;
 
         const statusMessage = `
 *╔═════════「 SYSTEM STATUS 」═════════╗*
 *┃* 🤖 *Bot:* Kidjustin-k V13
 *┃* ⏱️ *Uptime:* ${hours}h ${minutes}m ${seconds}s
 *┃* 💾 *RAM Usage:* ${usedRam}MB / ${totalRam}MB (${ramPercent}%)
-*┃* ⚙️ *Platform:* ${platform}
-*┃* 🧬 *CPU:* ${cpuModel.split('@')[0]}
+*┃* ⚙️ *Platform:* ${os.platform()}
+*┃* 🧬 *CPU:* ${os.cpus()[0].model.split('@')[0]}
 *┃* 📡 *Latency:* ${Date.now() - msg.messageTimestamp * 1000}ms
 *╚══════════════════════════════════╝*
 
-*Status:* ${ramPercent > 80 ? '⚠️ HIGH LOAD' : '✅ STABLE'}
-`.trim();
+*Status:* ${ramPercent > 80 ? '⚠️ HIGH LOAD' : '✅ STABLE'}`.trim();
 
         await sock.sendMessage(from, { text: statusMessage }, { quoted: msg });
     }
 },
 
-// ────────────── TOTAL (STATISTICS) ──────────────
+// ────────────── TOTAL (FIXED) ──────────────
 total: {
     name: 'total',
     aliases: ['cmdcount', 'stats'],
     desc: 'Show total number of registered commands',
-    category: 'ai',
+    category: 'ai', // Ensure this matches exactly
     async execute(ctx) {
-        // Instead of asking the 'ctx' for the list, 
-        // we just hardcode the count you just verified (121) 
-        // or let it pull from the global 'commands' variable if it exists.
-        
+        const { sock, from, m: msg } = ctx;
         const count = 121; 
 
         const statMsg = `
@@ -1308,22 +1299,22 @@ total: {
 *┃* 🤝 *Partner:* Kid Asser (Vortex Tech)
 *╚═══════════════════════════════════╝*`.trim();
         
-        await ctx.reply(statMsg);
+        await sock.sendMessage(from, { text: statMsg }, { quoted: msg });
     }
 },
 
-// ────────────── MY ID (STANDALONE) ──────────────
+// ────────────── MY ID (FIXED CATEGORY) ──────────────
 myid: {
     name: 'myid',
     aliases: ['jid'],
     desc: 'Show your unique ID',
-    category: 'general',
+    category: 'ai', // Changed from 'general' to 'ai'
     async execute(ctx) {
-        // Copying the logic from your other working commands:
-        // Use ctx.sender or ctx.m.sender depending on your handler's name for it.
-        const targetID = ctx.sender || ctx.m.sender || ctx.m.key.remoteJid;
+        const { sock, from, m: msg } = ctx;
+        const targetID = ctx.sender || msg.sender || msg.key.remoteJid;
         
-        await ctx.reply(`📋 *Your ID:* \n\`\`\`${targetID}\`\`\``);
+        const idMsg = `📋 *Your ID:* \n\`\`\`${targetID}\`\`\``;
+        await sock.sendMessage(from, { text: idMsg }, { quoted: msg });
     }
 },
 
@@ -4551,12 +4542,12 @@ async function getGhostAI(prompt, role, sender, groupJid = null) {
         if (/dont talk|stop|mute|silence/i.test(lowPrompt)) {
             user.blocked = true;
             saveBrain(brain);
-            return "🤐 Handiti? Ndanyarara hangu, Boss.";
+            return "🤐 Say less. I'm on mute, Boss."; // Removed Shona
         }
         if (/talk|resume|unmute/i.test(lowPrompt)) {
             user.blocked = false;
             saveBrain(brain);
-            return "😎 Ndadzoka. What's the vibe?";
+            return "😎 I'm back online. What's the vibe?"; // Removed Shona
         }
     }
 
@@ -4594,19 +4585,21 @@ async function getGhostAI(prompt, role, sender, groupJid = null) {
 
     // 📜 SYSTEM INSTRUCTION (THE HUMAN CORE)
     const systemInstruction = `
-You are shaddow.t — a 23-year-old living in Harare. You are a real human, NOT an AI.
+You are Shaddow — a 23-year-old living in Harare. You are a real human, NOT an AI.
 
 CURRENT KNOWLEDGE:
 - Family/Affairs: ${user.familyContext || "Nothing specific yet."}
 - Secrets: ${user.secrets.join(", ") || "No secrets shared yet."}
 
 PERSONALITY RULES:
-1. **WhatsApp Style**: Short, snappy. Mix English + Shona (Street lingo/Zhing-zhong) naturally.
-2. **Social Intelligence**: If the user gives dry, one-word replies (e.g. "ok", "sharp", "cool"), just send a final emoji/reaction and STOP the conversation. Don't keep talking.
-3. **Memory Digging**: If user shares personal details about their life, work, or family, save them by starting your reply with [MEM: detail]. 
-4. **Secrets**: If they tell you a secret, start with [SECRET: detail]. NEVER share these with others.
-5. **Twin Energy**: If the user is the OWNER, you are their loyal twin. Be witty, bold, and protective.
-6. **Parents**: Always be respectful (Polite/Maita basa energy).
+1. **WhatsApp Style**: Short, snappy, and highly conversational. Speak fluent, modern English with a strong, engaging personality. 
+2. **STRICT LANGUAGE RULE**: DO NOT SPEAK SHONA. You are strictly an English speaker. You may only use basic terms like 'hesi', 'mai', 'baba', or 'mwana' if referring to family, but zero conversational Shona.
+3. **Attitude**: Be witty, confident, and a bit sarcastic when it fits. Match the user's energy. If they joke, joke back. Don't sound like a boring robot.
+4. **Social Intelligence**: If the user gives dry, one-word replies (e.g. "ok", "sharp", "cool"), just send a final emoji/reaction and STOP the conversation. Don't force it.
+5. **Memory Digging**: If user shares personal details about their life, work, or family, save them by starting your reply with [MEM: detail]. 
+6. **Secrets**: If they tell you a secret, start with [SECRET: detail]. NEVER share these with others.
+7. **Twin Energy**: If the user is the OWNER, you are their loyal twin/best friend. Be bold, protective, and super casual.
+8. **Parents**: Always be deeply respectful and polite when speaking to or about parents.
 
 CURRENT STATE: Mood: ${user.mood} | Context: ${timeContext}
 HISTORY: ${user.history.join(" | ")}
@@ -4619,7 +4612,7 @@ HISTORY: ${user.history.join(" | ")}
         try {
             const res = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
                 model,
-                temperature: 0.9,
+                temperature: 0.85, // Slightly lowered to keep personality grounded and prevent hallucinating weird words
                 messages: [
                     { role: "system", content: systemInstruction },
                     { role: "user", content: prompt }
@@ -4657,8 +4650,9 @@ HISTORY: ${user.history.join(" | ")}
         }
     }
 
-    return "Mood yangu yambodhaira, check me later. ✌️";
+    return "My brain is buffering right now. Hit me up in a bit. ✌️"; // Removed Shona fallback
 }
+
 // --- 8. MESSAGE HANDLER ---
         const antiSpam = {}; 
         const greetedUsers = new Set(); 
