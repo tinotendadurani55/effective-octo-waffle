@@ -41,19 +41,6 @@ app.listen(process.env.PORT || 8000, () => {
     console.log('✅ Health check server is running on port 8000');
 });
 
-const brainPath = path.join(__dirname, 'brain.json');
-
-if (!fs.existsSync(brainPath)) {
-    fs.writeFileSync(brainPath, JSON.stringify({}));
-}
-
-function loadBrain() {
-    return JSON.parse(fs.readFileSync(brainPath, 'utf-8'));
-}
-
-function saveBrain(data) {
-    fs.writeFileSync(brainPath, JSON.stringify(data, null, 2));
-}
 
 // --- 2. STANDARD IMPORTS ---
 const { 
@@ -76,6 +63,19 @@ const cheerio = require('cheerio');
 const { v4: uuidv4 } = require('uuid');
 const os = require('os');
 const fetch = require('node-fetch');
+const brainPath = path.join(__dirname, 'brain.json');
+
+if (!fs.existsSync(brainPath)) {
+    fs.writeFileSync(brainPath, JSON.stringify({}));
+}
+
+function loadBrain() {
+    return JSON.parse(fs.readFileSync(brainPath, 'utf-8'));
+}
+
+function saveBrain(data) {
+    fs.writeFileSync(brainPath, JSON.stringify(data, null, 2));
+}
 
 // --- DATABASE (PostgreSQL — optional, falls back to file if not configured) ---
 const postgres = require('postgres');
