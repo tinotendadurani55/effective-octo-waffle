@@ -4533,12 +4533,12 @@ async function getGhostAI(prompt, role, sender) {
         if (/dont talk|stop|mute|silence/i.test(prompt.toLowerCase())) {
             user.blocked = true;
             saveBrain(brain);
-            return "🤐 ndanyarara.";
+            return "haaa pashaker ini🤐.";
         }
         if (/talk|resume|unmute/i.test(prompt.toLowerCase())) {
             user.blocked = false;
             saveBrain(brain);
-            return "😎 ndadzoka.";
+            return "😎 hoyo magees.";
         }
     }
 
