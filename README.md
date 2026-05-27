@@ -3,7 +3,7 @@
   <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="100%" alt="Kidjustin-k Banner">
   <br><br>
 
-  [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=<h1><h1>🤖+KIDJUSTIN-K+V13</h1>)](https://git.io/typing-svg)
+  [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=🤖+KIDJUSTIN-K+V13)](https://git.io/typing-svg)
   <p><i>The Master Planner's Ultimate WhatsApp Automation Suite</i><br>
   <b>Powered by Vortex Tech</b></p>
 
