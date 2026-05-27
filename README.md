@@ -3,9 +3,15 @@
   <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="100%" alt="Kidjustin-k Banner">
   <br><br>
 
-  [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=.++++++++++++++++++++++🤖+KIDJUSTIN-K+V13)](https://git.io/typing-svg)
-  <p><i>The Master Planner's Ultimate WhatsApp Automation Suite</i><br>
-  <b>Powered by Vortex Tech</b></p>
+  # KIDJUSTIN-K V13
+> ### ⚡ The Master Planner's Ultimate WhatsApp Automation Suite
+> *Powered by Vortex Tech*
+
+<div align="center"> 
+  <a href="https://git.io/typing-svg"> 
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=33ff00&center=true&width=910&height=100&lines=KIDJUSTIN-K+V13;The+Master+Planner;Powered+By+Vortex+Tech" alt="Typing SVG" />
+  </a>
+</div>
 
 
   <p>
