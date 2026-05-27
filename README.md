@@ -3,9 +3,7 @@
   <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="100%" alt="Kidjustin-k Banner">
   <br><br>
 
-  <h1>🤖 KIDJUSTIN-K V13</h1>
-  <p><i>The Master Planner's Ultimate WhatsApp Automation Suite</i><br>
-  <b>Powered by Vortex Tech</b></p>
+  [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=<h1>🤖+KIDJUSTIN-K+V13</h1>+;+<p><i>The+Master+Planner's+;Ultimate+WhatsApp+Automation+Suite</i><br>+;<b>Powered+by+Vortex+Tech</b></p>)](https://git.io/typing-svg)
 
   <p>
     <a href="https://rentry.co/t-Durani-LICENSE">
