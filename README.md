@@ -1,4 +1,4 @@
-<div align="center"> 
+ <div align="center"> 
   <a href="https://git.io/typing-svg"> 
     <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=00ccff&center=true&width=910&height=100&lines=KIDJUSTIN-K+V13;⚡+Master+Planner;Powered+By+Vortex+Tech" alt="Typing SVG">
   </a>
