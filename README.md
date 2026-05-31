@@ -27,7 +27,7 @@
 
   <p>
     <a href="https://github.com/tinotendadurani55/effective-octo-waffle/stargazers">
-      <img src="https://img.shields.io/github/star/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Star">
+      <img src="https://img.shields.io/github/stars/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Stars">
     </a>
     <a href="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
       <img src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="Forks">
