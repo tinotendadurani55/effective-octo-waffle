@@ -1,79 +1,40 @@
-
-<div align="center"> 
-  <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=00ccff&center=true&width=910&height=100&lines=KIDJUSTIN-K+V13;The+Master+Planner;Powered+By+Vortex+Tech" alt="Typing SVG">
+<div align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=FF69B4&center=true&width=910&height=100&lines=MINIMA+V13;MINI+BOT.ZW;Your+Personal+WhatsApp+Assistant" alt="Typing SVG">
   </a>
 </div>
 
 <div align="center">
 
-  <img src="https://i.postimg.cc/htpZFLkb/IMG_20260328_WA0012.jpg" width="100%" alt="Kidjustin-k Banner">
-  <br><br>
+# MINIMA V13
+> ### 🌸 A feature-rich, single-file WhatsApp automation bot — built on Baileys
+> *MINI BOT.ZW · Created by t.Durani*
 
-  # KIDJUSTIN-K V13
-> ### ⚡ The Master Planner's Ultimate WhatsApp Automation Suite
-> *Powered by Vortex Tech*
+<p>
+  <img src="https://img.shields.io/badge/VERSION-V13-ff69b4?style=for-the-badge&logo=whatsapp" alt="Version">
+  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+</p>
+<p>
+  <img src="https://img.shields.io/badge/Platform-Koyeb%20%7C%20Render%20%7C%20HuggingFace%20%7C%20Termux-0055FF?style=for-the-badge" alt="Platform">
+</p>
 
-
-  <p>
-    <a href="https://rentry.co/t-Durani-LICENSE">
-      <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
-    </a>
-    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/releases">
-      <img src="https://img.shields.io/badge/VERSION-v13.0.0--STABLE-blue?style=for-the-badge&logo=whatsapp" alt="Version">
-    </a>
-    <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
-  </p>
-
-  <p>
-    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/stargazers">
-      <img src="https://img.shields.io/github/stars/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=yellow" alt="Stars">
-    </a>
-    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/network/members">
-      <img src="https://img.shields.io/github/forks/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=orange" alt="Forks">
-    </a>
-    <a href="https://github.com/tinotendadurani55/effective-octo-waffle/issues">
-      <img src="https://img.shields.io/github/issues/tinotendadurani55/effective-octo-waffle?style=for-the-badge&color=red" alt="Issues">
-    </a>
-  </p>
-
-  <p>
-    <img src="https://img.shields.io/badge/Node.js-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
-    <img src="https://img.shields.io/badge/Platform-Koyeb%20%7C%20Termux-0055FF?style=for-the-badge" alt="Platform">
-  </p>
-
-  <br>
-
-  <blockquote>
-    <b>Production-grade WhatsApp automation engine built on Baileys.<br>Engineered for reliability, built for scale.</b>
-  </blockquote>
+<blockquote>
+  <b>One self-contained <code>index.js</code>. No database server, no microservices — just a single file that does everything from TikTok downloads to a built-in cipher language.</b>
+</blockquote>
 
 </div>
 
 ---
 
 ## 📌 Table of Contents
-- [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Command Reference](#-command-reference)
-- [Quick Deploy](#-quick-deploy-koyeb)
-- [Manual Setup](#-manual-setup)
+- [Deployment](#-deployment)
 - [Environment Variables](#-environment-variables)
 - [Architecture](#-architecture)
+- [Known Limitations](#-known-limitations)
 - [Contact](#-contact)
-
----
-
-## 📸 Screenshots
-
-<p align="center">
-  <img src="screenshots/menu.jpg" width="30%" alt="Command Categories Menu">
-  <img src="screenshots/downloads.jpg" width="30%" alt="Downloads Menu">
-  <img src="screenshots/games.jpg" width="30%" alt="Games & Fun Menu">
-</p>
-<p align="center">
-  <em>Command Categories &nbsp;&nbsp;|&nbsp;&nbsp; Downloads Menu &nbsp;&nbsp;|&nbsp;&nbsp; Games & Fun Menu</em>
-</p>
 
 ---
 
@@ -82,123 +43,161 @@
 ### 🛡️ Group Management & Security
 | Feature | Description |
 |---|---|
-| **Anti-Link** | Automatically removes users who post unauthorized links in groups |
-| **Anti-Flood** | Configurable spam detection with cooldown enforcement |
-| **Call Blocker** | Auto-rejects incoming calls when enabled |
-| **Blacklist** | Permanent ban list that persists across restarts |
-| **Group Rules** | Set, list, and clear rules per group — stored in PostgreSQL |
-| **Welcome Messages** | Custom per-group welcome messages with `{name}` and `{group}` placeholders |
+| **Anti-Link** | Toggleable per-group link blocking |
+| **Anti-Delete** | Catches deleted messages (text/image/audio/sticker/document) via WhatsApp's actual REVOKE signal and resends them |
+| **Anti-Edit** | Catches edited messages |
+| **Warnings** | Per-user warning system with list/clear |
+| **Welcome Messages** | Toggleable per-group welcome messages |
+| **Admin Tools** | Kick, add, promote, demote, tag-all/admins/active, group info & invite link management |
 
-### 📥 Media & Downloads
+### 📥 Downloads
 | Feature | Description |
 |---|---|
-| **YouTube** | Download audio (M4A) and video (360p) via yt-dlp |
-| **TikTok** | Watermark-free video download |
-| **Instagram** | Reel and post downloader |
-| **MediaFire** | Direct cloud file retrieval |
-| **Google Drive** | Direct link processor |
+| **YouTube Audio** | `.play` / `.music` — search-and-confirm download flow |
+| **TikTok** | Watermark-aware video download via yt-dlp |
+| **Facebook / Instagram / Twitter** | Video/reel download via yt-dlp |
+| **Status Saver** | `.steal` — save someone's status media by replying to it |
+| **Sticker Tools** | Image→sticker, sticker→image, view-once bypass |
+| **HD Wallpaper** | Query-based wallpaper search |
 
-### 🎮 Games & Entertainment
+### 🤖 AI & Personal Assistant
 | Feature | Description |
 |---|---|
-| **Quiz Game** | 15-round multi-choice trivia with live leaderboards |
-| **Tic-Tac-Toe** | Real-time group TTT matches |
-| **XP & Levelling** | Per-user XP tracking with auto level-up notifications |
-| **Rep System** | Give reputation points to other users |
-| **Wallpaper** | Random HD wallpaper generator |
+| **Conversational AI** | Per-chat and global AI toggles, with owner-defined standing rules (`.addrule`) |
+| **Offline Mode** | `.offline on` — MINIMA takes over DMs as a personal assistant persona while the owner is away, with a one-time session greeting |
+| **🔮 Oracle AI Homework Solver** | `.hw` — answers questions from text *or* a photo of the question |
+| **NV Talk / HeartCipher** | A custom encode/decode cipher language with gradewise lessons, a teachable quiz mode, and scholar-access permissions |
+| **Auto-Reply Teaching** | Owner can teach custom trigger→response pairs (`.learn`) |
+| **Text-to-Speech** | `.speak` — converts text to a voice note |
 
-### 🤖 AI & Automation
+### 🎭 Status & Automation
 | Feature | Description |
 |---|---|
-| **Auto-Reply** | Built-in conversational responses + owner-teachable custom replies (`.learn`) |
-| **AFK System** | Set away status with reason; auto-notifies anyone who mentions you |
-| **Temp Mail** | Generate and read temporary email addresses |
-| **Weather** | Live weather reports via OpenWeatherMap |
-| **Poll System** | Create and vote on in-group polls |
-| **Sticker Maker** | Convert images to WhatsApp stickers with custom pack metadata |
-| **Auto Status View** | Silently reads all contacts' status updates |
+| **Auto Status View + React** | Silently views contacts' statuses and reacts with a neutral emoji, paced with randomized delays to avoid looking automated |
+| **Auto-Status Posting** | `.autostatus on` — posts a random line (from a 50-rule "Brocode" bank or a scenario bank) to the bot's own Status roughly every 24h, with an instant confirmation post on enable |
+| **Scheduled Reports & Backups** | Daily report, auto-backup, and keepalive pings on ephemeral hosts |
+| **Maintenance Notices** | `.update` / `.addupdate` / `.delupdate` — owner-managed status notes shown when a download command is having issues, instead of a raw error |
 
-### ⚙️ Bot Administration
+### 🎮 Games & Fun
 | Feature | Description |
 |---|---|
-| **Premium Users** | Assign/revoke premium status — persisted across restarts |
-| **Settings Per Group** | Toggle features independently per group |
-| **PostgreSQL Persistence** | All settings, rules, and user data survive container restarts |
-| **File Fallback** | Automatically falls back to local JSON if no DB is configured (Termux-friendly) |
-| **Self-Diagnosis** | Startup checks for all required binaries and modules |
-| **Anti-Crash** | Global uncaught exception handler ignores Baileys internal noise |
+| **15-Round Trivia** | `.game` with live scoreboard and AI-generated hints |
+| **Word Chain** | `.wordchain` — plain-text word game, each word must start with the last letter of the previous one |
+| **Riddles** | `.riddle` — plain-text answer guessing |
+| **Party Games** | Truth/dare, would-you-rather, never-have-I-ever, 8-ball, compatibility/love meters, roast/compliment generators, and more |
+
+### 🌐 Network Toolkit
+| Feature | Description |
+|---|---|
+| **Host/Port Scanning** | `.hostest`, `.port`, `.ip`, `.dns`, `.sub`, `.host` — domain and network diagnostics |
+
+### ⚙️ Reliability
+| Feature | Description |
+|---|---|
+| **Emergency Stop** | `.emergencystop` silences the bot entirely; `.resume` (WhatsApp command or HTTP endpoint) brings it back |
+| **Session Self-Healing** | Clears stale Signal session files on boot to reduce decryption errors |
+| **safeSend Wrapper** | Mirrors a failed owner DM into a designated "keeper" group so nothing silently vanishes |
+| **Shield System** | `.shieldstatus` — armed/reset system-level protection state |
+| **Error Logging & Backups** | `.errorlog`, `.backup` / `.restore` for settings |
 
 ---
 
 ## 📋 Command Reference
 
-> Default prefix: `.`  
-> Owner commands require your number to match `OWNER_NUMBER`.
+> Default prefix: `.` — change with `PREFIX` env var.
+> Full, always-current command list: send **`.menu`** to the bot — it shows a category picker (reply with a number to drill in, or `.menu all` for everything).
 
-| Category | Commands |
-|---|---|
-| **🛡️ Admin** | `.admin` `.antilink` `.kick` `.warn` `.mute` `.promote` `.demote` `.tagall` `.ban` `.unban` |
-| **📥 Downloads** | `.play` `.apk` `.tiktok` `.ig` `.fb` `.twitter` `.pinterest` `.mediafire` |
-| **🎮 Games & Fun** | `.game` `.answer` `.score` `.ttt` `.del` `.8ball` `.poll` `.pollresults` `.endpoll` `.afk` `.joke` |
-| **🤖 AI & Utility** | `.ai` `.speak` `.calc` `.screenshot` `.logo` `.weather` `.sticker` `.toimg` `.mail` `.wallpaper` |
-| **👑 Owner & System** | `.owner` `.addprem` `.removeprem` `.join` `.gitclone` `.broadcast` `.restart` `.update` `.learn` `.forget` `.block` `.unblock` |
-| **⚙️ Settings** | `.settings` `.callblock` `.autoview` `.antiflood` `.mode` `.setwelcome` `.setrules` `.clearrules` |
+<details>
+<summary><b>📥 Downloads</b></summary>
+
+`.play` `.music` `.tiktok` `.fb` `.ig` `.twitter` `.sticker` `.toimage` `.vv` `.steal` `.wallpaper`
+</details>
+
+<details>
+<summary><b>✨ Aesthetic</b></summary>
+
+`.outfit` `.tarot` `.bestie` `.sparkle` `.zodiac` `.brocode`
+</details>
+
+<details>
+<summary><b>🧠 Auto-Reply & Voice</b></summary>
+
+`.learn` `.unlearnreply` `.listreplies` `.speak` `.say`
+</details>
+
+<details>
+<summary><b>🛡️ Group Tools</b></summary>
+
+`.revoke` `.kick` `.add` `.promote` `.demote` `.warn` `.clearwarn` `.warnlist` `.close` `.open` `.tagall` `.tagadmins` `.tagactive` `.setname` `.setdesc` `.groupinfo` `.grouplink` `.afklist` `.report` `.kickall` `.antilink` `.welcome` `.antidelete` `.antiedit`
+</details>
+
+<details>
+<summary><b>🤖 Utility</b></summary>
+
+`.weather` `.bible` `.define` `.calc` `.trs` `.hw` `.remind` `.ping` `.status` `.uptime` `.botinfo` `.myid` `.createlogo` `.shorten` `.news`
+</details>
+
+<details>
+<summary><b>🎮 Fun</b></summary>
+
+`.scenario` `.joke` `.fact` `.quote` `.fortune` `.8ball` `.ship` `.lovemeter` `.truth` `.dare` `.wyr` `.nhie` `.roast` `.compliment` `.mock` `.rate` `.howmany` `.coinflip` `.dice` `.afk` `.unafk`
+</details>
+
+<details>
+<summary><b>🔬 Network Toolkit</b></summary>
+
+`.hostest` `.port` `.ip` `.dns` `.sub` `.host`
+</details>
+
+<details>
+<summary><b>🔐 NV Talk / HeartCipher</b></summary>
+
+`.grant` `.reject` `.lockdown` `.teach` `.nv` `.nvd` `.quiz`
+</details>
+
+<details>
+<summary><b>🎁 Minima Special</b></summary>
+
+`.gift` `.contact`
+</details>
+
+<details>
+<summary><b>🎮 Games & Fun</b></summary>
+
+`.game` `.answer` `.score` `.hint` `.clear` `.wordchain` `.riddle`
+</details>
+
+<details>
+<summary><b>⚙️ System & Owner (👑 owner-only)</b></summary>
+
+`.aion` `.aioff` `.aiclear` `.aiglobalon` `.aiglobaloff` `.offline` `.autostatus` `.addrule` `.rules` `.delrule` `.update` `.addupdate` `.delupdate` `.setkeeper` `.cleancache` `.errorlog` `.backup` `.restore` `.emergencystop` `.resume` `.reset` `.angrymode` `.calmdown` `.autoview` `.callblock` `.public` `.self` `.bot` `.bc` `.ban` `.unban` `.addprem` `.delprem` `.left` `.join` `.botquiet` `.darkmenu` `.shieldstatus`
+</details>
 
 ---
 
-## 🚀 Quick Deploy — Koyeb
+## 🚀 Deployment
 
-Click below for a one-click deployment. You will need to configure environment variables after deployment.
+MINIMA V13 runs on any Node.js host and auto-detects its environment (Termux vs. server paths for `ffmpeg`/`yt-dlp`). Confirmed working on:
 
-<p align="center">
-  <a href="https://app.koyeb.com/deploy?type=git&repository=github.com/tinotendadurani55/effective-octo-waffle&branch=main&name=kidjustin-k">
-    <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy to Koyeb" height="40">
-  </a>
-</p>
+- **Koyeb**
+- **Render**
+- **HuggingFace Spaces**
+- **Termux** (on-device, Android)
 
-**Required after deploy:** Set your [environment variables](#-environment-variables) in the Koyeb dashboard under **Settings → Environment**.
+### Linking
+On first launch with no saved session, the bot requests a **WhatsApp pairing code** (not a QR scan) for the configured number — link via *WhatsApp → Linked Devices → Link with Phone Number*. Encode the resulting session as `SESSION_ID` to skip re-pairing on restart.
 
----
-
-## 🛠️ Manual Setup
-
-### Prerequisites
-
-- **Node.js** v20 or higher
-- **FFmpeg** — for media processing
-- **yt-dlp** — for YouTube/TikTok downloads
+### Manual Setup
 
 ```bash
-# Install yt-dlp
+# Prerequisites
 pip install yt-dlp
+sudo apt install ffmpeg   # or: pkg install ffmpeg yt-dlp   (Termux)
 
-# Ubuntu/Debian — Install FFmpeg
-sudo apt install ffmpeg
-
-# Termux
-pkg install ffmpeg yt-dlp
-```
-
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/tinotendadurani55/effective-octo-waffle.git
-cd effective-octo-waffle
-
-# 2. Install dependencies
+# Install & run
 npm install
-
-# 3. Configure environment variables (see section below)
-cp .env.example .env
-nano .env
-
-# 4. Start the bot
-npm start
+node index.js
 ```
-
-On first launch, a QR code will appear in the terminal. Scan it with WhatsApp to link your account.  
-To avoid re-scanning on every restart, encode your session and set `SESSION_ID` in your environment variables.
 
 ---
 
@@ -206,33 +205,32 @@ To avoid re-scanning on every restart, encode your session and set `SESSION_ID` 
 
 | Variable | Required | Description |
 |---|---|---|
-| `SESSION_ID` | ✅ | Base64-encoded WhatsApp session for Koyeb restarts |
-| `OWNER_NUMBER` | ✅ | Your WhatsApp number (digits only, e.g. `263777426534`) |
-| `BOT_NAME` | ✅ | Display name of the bot |
-| `OWNER_NAME` | ✅ | Your display name |
-| `PREFIX` | ✅ | Command prefix (default: `.`) |
-| `MODE` | ✅ | `public` (anyone can use) or `private` (owner only) |
-| `PORT` | ✅ | Health check port (default: `8000`, auto-set by Koyeb) |
-| `DATABASE_HOST` | ⚡ Recommended | PostgreSQL host for persistent storage |
-| `DATABASE_NAME` | ⚡ Recommended | PostgreSQL database name |
-| `DATABASE_USER` | ⚡ Recommended | PostgreSQL username |
-| `DATABASE_PASSWORD` | ⚡ Recommended | PostgreSQL password |
-| `OPENWEATHERMAP_KEY` | Optional | API key for `.weather` command |
-| `REPORT_NUMBER` | Optional | Number to forward `.report` messages to |
+| `SESSION_ID` | Recommended | Base64-encoded WhatsApp session — skips re-pairing on restart |
+| `PAIR_NUMBER` | ✅ (first run) | The WhatsApp number to pair, digits only |
+| `OWNER_NAME` | Optional | Display name (default: `t.Durani`) |
+| `BOT_NAME` | Optional | Display name (default: `MINIMA V13`) |
+| `PREFIX` | Optional | Command prefix (default: `.`) |
+| `MODE` | Optional | `public` or `private` (default: `public`) |
+| `PORT` | Optional | Health-check server port (default: `7860`) |
+| `SUB_OWNER_ID` / `SUB_OWNERS` | Optional | Additional owner-level numbers |
+| `KEEPER_GROUP_ID` | Optional | Group JID for error mirroring + keepalive pings |
+| `RESUME_TOKEN` | Optional | Secret for the HTTP `/resume` endpoint (clears emergency stop) |
+| `SESSION_DIR` | Optional | Override the session storage path |
+| `GROQ_API_KEY` / `GEMINI_API_KEY` / `OPENROUTER_API_KEY` | Optional | AI provider keys (`.hw`, conversational AI, hints) |
 
-> ⚡ **Without a database**, all settings reset on every container restart. For Koyeb, a free PostgreSQL provider such as [Neon](https://neon.tech) is strongly recommended.
+> No database server required — all settings, rules, and history persist to a local `database.json`, with automatic backups.
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-effective-octo-waffle/
-├── index.js            # Core — Baileys connection, event handlers, command router
-├── package.json        # Dependencies and scripts
-├── session/            # Encrypted WhatsApp auth state (auto-generated)
-├── downloads/          # Temporary media files (auto-purged)
-└── database.json       # Local persistence fallback (used when no DB is configured)
+/
+├── index.js          # Everything — connection, command router, all ~140 commands, schedulers
+├── database.json      # Local persistence (settings, rules, updates, known contacts, etc.)
+├── chat-memory.json   # AI conversation memory, persisted across restarts
+├── error-log.json     # Recent error history
+└── downloads/         # Temporary media (auto-purged)
 ```
 
 **Tech Stack**
@@ -240,52 +238,38 @@ effective-octo-waffle/
 | Layer | Technology |
 |---|---|
 | WhatsApp Client | [@whiskeysockets/baileys](https://github.com/WhiskeySockets/Baileys) |
-| Runtime | Node.js 20+ (CommonJS) |
-| HTTP / Health Check | Express |
+| Runtime | Node.js (CommonJS) |
+| Health Check | Express |
 | Media Processing | FFmpeg + yt-dlp |
-| Database | PostgreSQL (via `postgres.js`) with JSON file fallback |
-| Hosting | Koyeb (also supports Termux) |
+| Persistence | Local JSON file, no external DB |
+| AI | Groq / Gemini / OpenRouter (configurable) |
+
+Deliberately single-file: every command, scheduler, and helper lives in one `index.js`. No build step, no module graph to debug — easy to read top-to-bottom, easy to deploy anywhere Node runs.
 
 ---
 
-## 🤝 Contributing
+## ⚠️ Known Limitations
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Documented honestly rather than swept under the rug:
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+- **TikTok downloads** are at the mercy of an ongoing, unresolved upstream fight between `yt-dlp` and TikTok's anti-scraping changes. Keep `yt-dlp` updated (`yt-dlp -U`); this can still break without warning regardless.
+- **New-status posting** (`.autostatus`) has a known open bug in Baileys where the send call can report success with no error, yet nothing appears on Status. A fix (adding `backgroundColor`/`font` fields) is in place, but treat any "posted" confirmation as unverified until you've checked the Status tab yourself.
+- **Occasional "Bad MAC" / session decrypt errors** against specific contacts are a known Baileys/Signal-session limitation, not a bug in this codebase. The bot clears stale session files on boot as a mitigation; a persistently affected contact may need to log out/in on their end to force a fresh handshake.
 
 ---
 
 ## 📬 Contact
 
-**t.Durani** — Full-Stack Developer · Bot Architect · System Engineer
+**t.Durani** — Bot Developer · Zimbabwe 🇿🇼
 
 <p align="left">
-  <a href="mailto:tinotendadurani55@gmail.com">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-  </a>
   <a href="https://wa.me/263777426534">
     <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp">
   </a>
-  <a href="https://github.com/tinotendadurani55">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-  </a>
 </p>
-
-> For bugs and feature requests, please [open an issue](https://github.com/tinotendadurani55/effective-octo-waffle/issues) rather than sending a direct message.
 
 ---
 
 <p align="center">
-  Built with ❤️ by <strong>t.Durani</strong> · Zimbabwe 🇿🇼
+  Built by <strong>t.Durani</strong> · MINI BOT.ZW 🇿🇼
 </p>
