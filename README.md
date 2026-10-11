@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=FF69B4&center=true&width=910&height=100&lines=MINIMA+V13;MINI+BOT.ZW;Your+Personal+WhatsApp+Assistant" alt="Typing SVG">
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=FF69B4&center=true&width=910&height=100&lines=MINIMA+V13;Your+Personal+WhatsApp+Assistant" alt="Typing SVG">
   </a>
 </div>
 
@@ -11,6 +11,9 @@
 > *MINI BOT.ZW · Created by t.Durani*
 
 <p>
+  <a href="https://rentry.co/t-Durani-LICENSE">
+    <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
+  </a>
   <img src="https://img.shields.io/badge/VERSION-V13-ff69b4?style=for-the-badge&logo=whatsapp" alt="Version">
   <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
@@ -34,6 +37,7 @@
 - [Environment Variables](#-environment-variables)
 - [Architecture](#-architecture)
 - [Known Limitations](#-known-limitations)
+- [License](#-license)
 - [Contact](#-contact)
 
 ---
@@ -255,6 +259,14 @@ Documented honestly rather than swept under the rug:
 - **TikTok downloads** are at the mercy of an ongoing, unresolved upstream fight between `yt-dlp` and TikTok's anti-scraping changes. Keep `yt-dlp` updated (`yt-dlp -U`); this can still break without warning regardless.
 - **New-status posting** (`.autostatus`) has a known open bug in Baileys where the send call can report success with no error, yet nothing appears on Status. A fix (adding `backgroundColor`/`font` fields) is in place, but treat any "posted" confirmation as unverified until you've checked the Status tab yourself.
 - **Occasional "Bad MAC" / session decrypt errors** against specific contacts are a known Baileys/Signal-session limitation, not a bug in this codebase. The bot clears stale session files on boot as a mitigation; a persistently affected contact may need to log out/in on their end to force a fresh handshake.
+
+---
+
+## 📄 License
+
+This project is **Proprietary** — all rights reserved. Full terms:
+- In this repository: [`LICENSE`](LICENSE)
+- Hosted copy: [rentry.co/t-Durani-LICENSE](https://rentry.co/t-Durani-LICENSE)
 
 ---
 
