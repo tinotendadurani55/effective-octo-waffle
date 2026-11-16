@@ -1,460 +1,389 @@
 <div align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=42&pause=1000&color=FF69B4&center=true&width=910&height=100&lines=MINIMA+V13;MINI+BOT.ZW;Your+Personal+WhatsApp+Assistant" alt="Typing SVG">
-  </a>
-</div>
 
-<div align="center">
+<a href="https://git.io/typing-svg">
+  <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=40&pause=900&color=FF69B4&center=true&vCenter=true&width=900&height=90&lines=MINIMA+V13;MINI+BOT.ZW;WhatsApp+Automation+Reimagined" alt="MINIMA V13">
+</a>
 
-# MINIMA V13
-> ### 🌸 A feature-rich, single-file WhatsApp automation bot — built on Baileys
-> *MINI BOT.ZW · Created by t.Durani*
+# 🌸 MINIMA V13
 
-<p>
-  <a href="https://rentry.co/t-Durani-LICENSE">
-    <img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="License">
-  </a>
-  <img src="https://img.shields.io/badge/VERSION-V13-ff69b4?style=for-the-badge&logo=whatsapp" alt="Version">
-  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-brightgreen?style=for-the-badge" alt="Status">
-  <img src="https://img.shields.io/badge/Node.js-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
-</p>
-<p>
-  <img src="https://img.shields.io/badge/Platform-Koyeb%20%7C%20Render%20%7C%20HuggingFace%20%7C%20Termux-0055FF?style=for-the-badge" alt="Platform">
-  <img src="https://img.shields.io/badge/Voice-Piper%20TTS-8A2BE2?style=for-the-badge" alt="Voice">
-</p>
+**MINI BOT.ZW · A WhatsApp assistant by [t.Durani](https://github.com/t-Durani)**
 
-<blockquote>
-  <b>One self-contained <code>index.js</code>. No database server, no microservices — just a single file that does everything from TikTok downloads to a built-in cipher language, and now speaks with a real voice.</b>
-</blockquote>
+<img src="https://img.shields.io/badge/VERSION-13-ff69b4?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Version 13">
+<img src="https://img.shields.io/badge/RUNTIME-Node.js%2020%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+<img src="https://img.shields.io/badge/ENGINE-Baileys-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Baileys">
+<img src="https://img.shields.io/badge/LICENSE-PROPRIETARY-red?style=for-the-badge&logo=github" alt="Proprietary license">
+
+<br>
+
+*A compact, single-file WhatsApp bot with AI conversation, media tools, group controls, games, voice notes and a custom command suite.*
+
+[Commands](#-command-directory) · [Setup](#-quick-start) · [Configuration](#-environment-variables) · [License](#-license)
 
 </div>
 
 ---
 
-## 📌 Table of Contents
-- [Features](#-features)
-- [Voice System](#-voice-system)
-- [Command Reference](#-command-reference)
-- [Deployment](#-deployment)
-- [Environment Variables](#-environment-variables)
-- [Architecture](#-architecture)
-- [Known Limitations](#-known-limitations)
-- [License](#-license)
-- [Contact](#-contact)
+## ✦ At a glance
+
+| Module | What's inside |
+|:--|:--|
+| 🤖 **AI assistant** | Natural conversation, chat memory, configurable AI access, owner rules and Victoria mode |
+| 🎙️ **Voice** | Voice-note transcription and optional spoken replies through Piper / Google TTS |
+| 📥 **Media** | Music, APK, social-video, sticker, view-once and wallpaper tools |
+| 🛡️ **Groups** | Moderation, warnings, admin actions, anti-link, anti-delete and anti-edit |
+| 🔐 **HeartCipher** | NV Talk encoding, decoding, lessons, quizzes and Scholar access |
+| 🎮 **Entertainment** | Trivia, riddles, word chain, polls, reactions and action GIFs |
+| 🌐 **Network** | Host, port, DNS, IP, subdomain and SSL information tools |
+| ⚙️ **Operations** | Backups, error logs, status checks, scheduled tasks and emergency recovery |
 
 ---
 
-## ✨ Features
+## ⚡ Quick start
 
-### 🛡️ Group Management & Security
-| Feature | Description |
-|---|---|
-| **Anti-Link** | Toggleable per-group link blocking |
-| **Anti-Delete** | Catches deleted messages (text/image/audio/sticker/document) via WhatsApp's actual REVOKE signal and resends them |
-| **Anti-Edit** | Catches edited messages |
-| **Warnings** | Per-user warning system with list/clear |
-| **Welcome Messages** | Toggleable per-group welcome messages |
-| **Admin Tools** | Kick, add, promote, demote, tag-all/admins/active, group info & invite link management |
-
-### 📥 Downloads
-| Feature | Description |
-|---|---|
-| **Audio** | `.play` (search → confirm → download) and `.music` (HQ, instant). Sources tried in order: SoundCloud → Internet Archive → Jamendo (optional) → any pasted link (Audiomack, Bandcamp, Mixcloud…). If one fails it moves on to the next |
-| **APK** | `.apk <app name>` — searches the Aptoide store, shows a confirm card, then sends the APK (max 100MB, checksum-verified) |
-| **TikTok** | Watermark-aware video download via yt-dlp |
-| **Facebook / Instagram / Twitter** | Video/reel download via yt-dlp |
-| **Status Saver** | `.steal` — save someone's status media by replying to it |
-| **Sticker Tools** | Image→sticker, sticker→image, view-once bypass |
-| **HD Wallpaper** | Query-based wallpaper search |
-
-### 🤖 AI & Personal Assistant
-| Feature | Description |
-|---|---|
-| **Conversational AI** | Per-chat and global AI toggles, with owner-defined standing rules (`.addrule`) |
-| **Victoria Persona** | Owner-only rich-heiress persona, toggled with `.victoria on/off` |
-| **Offline Mode** | `.offline on` — MINIMA takes over DMs as a personal assistant persona while the owner is away, with a one-time session greeting |
-| **🎙️ Voice Notes** | Victoria can reply with real WhatsApp voice notes — see [Voice System](#-voice-system) |
-| **NV Talk / HeartCipher** | A custom encode/decode cipher language with gradewise lessons, a teachable quiz mode, and scholar-access permissions |
-| **Auto-Reply Teaching** | Owner can teach custom trigger→response pairs (`.learn`) |
-
-### 🎭 Status & Automation
-| Feature | Description |
-|---|---|
-| **Auto Status View + React** | Silently views contacts' statuses and reacts with a neutral emoji, paced with randomized delays to avoid looking automated |
-| **Scheduled Reports & Backups** | Daily report, auto-backup, and keepalive pings on ephemeral hosts |
-| **Maintenance Notices** | `.update` / `.addupdate` / `.delupdate` — owner-managed status notes shown when a download command is having issues, instead of a raw error |
-
-### 🎮 Games & Fun
-| Feature | Description |
-|---|---|
-| **15-Round Trivia** | `.game` with live scoreboard and AI-generated hints |
-| **Word Chain** | `.wordchain` — plain-text word game, each word must start with the last letter of the previous one |
-| **Riddles** | `.riddle` — plain-text answer guessing |
-| **Polls** | `.funpoll` — interactive vibe/scenario poll with `.pollresults` tallying |
-| **Party Games** | Truth/dare, would-you-rather, 8-ball, compatibility/love meters, roast/compliment generators, and more |
-
-### 🌐 Network Toolkit
-| Feature | Description |
-|---|---|
-| **Host/Port Scanning** | `.hostest`, `.port`, `.ip`, `.dns`, `.sub`, `.host` — domain and network diagnostics |
-
-### ⚙️ Reliability
-| Feature | Description |
-|---|---|
-| **Emergency Stop** | `.emergencystop` silences the bot entirely; `.resume` (WhatsApp command or HTTP endpoint) brings it back |
-| **Session Self-Healing** | Clears stale Signal session files on boot to reduce decryption errors |
-| **safeSend Wrapper** | Mirrors a failed owner DM into a designated "keeper" group so nothing silently vanishes |
-| **Shield System** | `.shieldstatus` — armed/reset system-level protection state |
-| **Error Logging & Backups** | `.errorlog`, `.backup` / `.restore` for settings |
-
----
-
-## 🎙️ Voice System
-
-Victoria can send **real WhatsApp voice notes** (PTT / Opus), not just text. The engine is a **three-tier fallback chain** — if one tier fails, the next takes over, and the user never sees an error.
-
-### The three tiers
-
-| Tier | Engine | What it does | Needs |
-|---|---|---|---|
-| **1** | **Piper TTS** | Local, offline neural TTS. Text on stdin → WAV → ffmpeg → OGG/Opus | `PIPER_BIN` + `PIPER_VOICE` present in the image |
-| **2** | **Google TTS** | The original `.speak` path — HTTP request to `translate.google.com/translate_tts`, MP3 → ffmpeg → OGG/Opus | Outbound internet, ffmpeg |
-| **3** | **Plain text** | Silent fallback. The normal text reply is sent instead | Nothing |
-
-Every tier outputs **OGG/Opus, mono, 48 kHz, 48 kbps** — the format WhatsApp requires for a voice note.
-
-### Why Piper runs on the Python engine, not the C++ binary
-
-The rhasspy `2023.11.14-2` C++ release binary **cannot load a voice model whose `phoneme_id_map` contains multi-codepoint entries**. `en_GB-alba-medium` has five (`aɪ`, `aʊ`, `ɔɪ`, `eɪ`, `oʊ`), so the binary aborts with:
-
-```
-[piper] [error] "aɪ" is not a single codepoint (ids=161,)
-terminate called after throwing an instance of 'std::runtime_error'
-  what():  Phonemes must be one codepoint (phoneme id map)
-```
-
-The Dockerfile therefore installs the **Python `piper-tts` engine (v1.8.0)**, which handles those phonemes correctly, and keeps `/app/piper/piper` as a two-line shell wrapper so `PIPER_BIN` still points exactly where the bot expects:
-
-```sh
-#!/bin/sh
-exec /usr/local/bin/piper "$@"
-```
-
-### When does she actually speak?
-
-Voice is **not** used for every reply. The policy lives in `shouldSendVoice()` and `isTextOnlyReply()`:
-
-| Rule | Value |
-|---|---|
-| **Random roll** | 1-in-20 chance on a normal AI reply, in DMs and groups |
-| **Mirror rule** | If the user sends a **voice note**, the reply is **always** a voice note |
-| **No two in a row** | Never two consecutive voice notes in the same chat |
-| **Per-chat cooldown** | 3 minutes between voice notes in the same chat |
-| **Max length** | Replies over **300 characters** stay text |
-| **Text-only content** | Links, fenced code, bullet/numbered lists, and code-ish text always stay text |
-
-### Startup check
-
-On boot the bot verifies the voice stack and logs one of:
-
-```
-✅ [voice] Piper TTS ready: /app/piper/voices/en_GB-alba-medium.onnx
-✅ [voice] ffmpeg available
-```
-
-or, if the binary/model is missing (voice then runs on the Google tier):
-
-```
-⚠️ [voice] Piper TTS not ready — falling back to Google TTS:
-   • binary  → /app/piper/piper
-   • model   → /app/piper/voices/en_GB-alba-medium.onnx
-```
-
-When a voice note is sent, the log names the tier that spoke:
-
-```
-[voice] sent voice note via piper
-[voice] sent voice note via google
-```
-
-### The AI knows she can speak
-
-`VOICE_CAPABILITY_NOTE` is appended to **every** prompt tier (owner and non-owner). It tells her plainly that she can send voice notes, that she should just reply normally when asked to speak, and that she must never tell the user to type a command to hear her voice.
-
-### `.say` is gone
-
-The old `.say` command and all of its aliases (`react`, `minisay`) have been **removed completely** — from the command table, from the AI's command reference, and from the audio-command list. There is no `.say` anywhere in the codebase. The `.speak` command is likewise no longer a user-facing command; its **logic** survives as tier 2 of the fallback chain.
-
----
-
-## 📋 Command Reference
-
-> Default prefix: `.` — change with `PREFIX` env var.
-> Full, always-current command list: send **`.menu`** to the bot — it shows a category picker (reply with a number to drill in, or `.menu all` for everything).
-> 👑 = owner-only.
-
-<details>
-<summary><b>📥 Downloads</b></summary>
-
-`.play` `.music` `.apk` `.tiktok` `.fb` `.ig` `.twitter` `.video` `.sticker` `.toimage` `.vv` `.steal` `.wallpaper`
-</details>
-
-<details>
-<summary><b>✨ Aesthetic</b></summary>
-
-`.outfit` `.tarot` `.bestie` `.sparkle` `.vapor` `.zodiac` `.brocode`
-</details>
-
-<details>
-<summary><b>🧠 Auto-Reply & Voice</b></summary>
-
-`.learn` 👑 `.unlearnreply` 👑 `.listreplies` 👑
-</details>
-
-<details>
-<summary><b>🛡️ Group Tools</b></summary>
-
-`.revoke` `.kick` `.add` `.promote` `.demote` `.warn` `.clearwarn` `.warnlist` `.close` `.open` `.pin` `.unpin` `.tagall` `.tagadmins` `.tagactive` `.setname` `.setdesc` `.groupinfo` `.grouplink` `.afklist` `.report` `.kickall` `.antilink` `.welcome` `.antidelete` 👑 `.antiedit` 👑
-</details>
-
-<details>
-<summary><b>🤖 Utility</b></summary>
-
-`.weather` `.bible` `.convert` `.pp` `.remind` `.ping` `.status` `.uptime` `.botinfo` `.myid` `.createlogo` `.shorten` `.news`
-</details>
-
-<details>
-<summary><b>🎮 Fun</b></summary>
-
-`.joke` `.fact` `.quote` `.fortune` `.8ball` `.ship` `.lovemeter` `.truth` `.dare` `.wyr` `.roast` `.compliment` `.mock` `.rate` `.howmany` `.coinflip` `.dice` `.afk` `.unafk` `.funpoll` `.pollresults`
-</details>
-
-<details>
-<summary><b>🔬 Network Toolkit</b></summary>
-
-`.hostest` `.port` `.ip` `.dns` `.sub` `.host`
-</details>
-
-<details>
-<summary><b>🔐 NV Talk / HeartCipher</b></summary>
-
-`.grant` 👑 `.reject` 👑 `.lockdown` 👑 `.teach` `.nv` `.nvd` `.quiz`
-</details>
-
-<details>
-<summary><b>🎁 Minima Special</b></summary>
-
-`.gift` `.contact`
-</details>
-
-<details>
-<summary><b>🎮 Games & Fun</b></summary>
-
-`.game` `.answer` `.score` `.hint` `.clear` `.wordchain` `.riddle`
-</details>
-
-<details>
-<summary><b>🎭 Action GIFs</b></summary>
-
-`.kiss` `.hug` `.slap` `.punch` `.kickgif` `.kill` `.cuddle` `.holdhands` `.handshake` `.respect` `.wave` `.laugh` `.cry` `.blush` `.sleep` `.dancegirl` `.danceguy` `.weddingdance`
-> Tag someone or reply to them: `.kiss @user` sends a looping GIF captioned "@you kissed @them". Owner tools: `.gifcheck` tests every GIF link; `.addgif <action> <giphy link>` adds a GIF and unlocks extra actions (`.pat` `.poke` `.bite` `.tickle` `.highfive` `.wink`).
-</details>
-
-<details>
-<summary><b>⚙️ System & Owner (👑 owner-only)</b></summary>
-
-`.minima` (aliases `.menu` `.help` `.m`) `.aion` `.aioff` `.aiclear` `.aiglobalon` `.aiglobaloff` `.aigroups` `.aidms` `.offline` `.victoria` `.addrule` `.rules` `.delrule` `.update` `.addupdate` `.delupdate` `.setkeeper` `.cleancache` `.errorlog` `.backup` `.restore` `.emergencystop` `.resume` `.reset` `.angrymode` `.calmdown` `.autoview` `.callblock` `.public` `.self` `.bot` `.bc` `.ban` `.unban` `.addprem` `.delprem` `.left` `.join` `.botquiet` `.autoadmin` `.darkmenu` `.shieldstatus` `.gifcheck` `.addgif`
-</details>
-
----
-
-## 🚀 Deployment
-
-MINIMA V13 runs on any Node.js host and auto-detects its environment (Termux vs. server paths for `ffmpeg`/`yt-dlp`). Confirmed working on:
-
-- **Koyeb**
-- **Render**
-- **HuggingFace Spaces**
-- **Termux** (on-device, Android)
-
-### Linking
-On first launch with no saved session, the bot requests a **WhatsApp pairing code** (not a QR scan) for the configured number — link via *WhatsApp → Linked Devices → Link with Phone Number*. Encode the resulting session as `SESSION_ID` to skip re-pairing on restart.
-
-### Docker (Koyeb / Render)
-
-The repo ships a `Dockerfile` that installs **and verifies** the voice stack. Build it with:
+**Requirements:** Node.js 20+, npm, FFmpeg and yt-dlp. Some features also need API keys.
 
 ```bash
-docker build -t minima-v13 .
-docker run -p 8000:8000 --env-file .env minima-v13
-```
-
-The Dockerfile does, in order:
-
-1. `FROM node:20-slim`
-2. Installs system deps: `ffmpeg`, `imagemagick`, `graphicsmagick`, `libwebp-dev`, `python3`, `python3-pip`, `curl`, `git`, `build-essential`, `ca-certificates` — plus the latest `yt-dlp` binary
-3. `pip3 install --break-system-packages --no-cache-dir piper-tts==1.8.0`
-4. Downloads the voice model to `/app/piper/voices/en_GB-alba-medium.onnx` and its `.onnx.json` (with `curl -fsSL`, so a failed download fails the build)
-5. Writes the `/app/piper/piper` wrapper around the Python engine
-6. **Runs a loud build-time verification** — see below
-7. Sets `PIPER_BIN` / `PIPER_VOICE`, `WORKDIR /app`, `npm install --omit=dev`, `COPY . .`, `EXPOSE 8000`, `CMD ["node", "index.js"]`
-
-### The build-time voice verification
-
-The verification step does not merely check that files exist — it **synthesises a sentence and converts it to Opus**. If anything is wrong, the build **fails loudly** instead of silently shipping an image with no voice:
-
-```
-BUILD FAILED: /app/piper/piper is not executable
-BUILD FAILED: voice model .onnx missing or empty
-BUILD FAILED: voice model .onnx.json missing or empty
-BUILD FAILED: piper could not synthesise speech (model incompatible?)
-BUILD FAILED: piper produced no audio
-BUILD FAILED: ffmpeg could not convert WAV to OGG/Opus
-BUILD FAILED: ffmpeg produced no OGG/Opus
-```
-
-On success it prints:
-
-```
-PIPER_INSTALL_OK: binary+voice+ffmpeg verified — speech synthesised and converted to Opus
-```
-
-**If you see that line, Piper is genuinely in the image and can genuinely speak** — it proved it during the build.
-
-### Confirming a deploy really has Piper
-
-In the build log, check all three:
-
-1. `transferring dockerfile:` should be **~5.4 kB** (the old, Piper-less Dockerfile was 838 B)
-2. A step running `pip3 install ... piper-tts==1.8.0` — **not** `CACHED` on the first run
-3. The `PIPER_INSTALL_OK:` line above
-
-At runtime, the boot log should show `✅ [voice] Piper TTS ready:` and `✅ [voice] ffmpeg available`.
-
-> ⚠️ A green deploy tick only means the container started. It does **not** prove Piper is inside it — always check for `PIPER_INSTALL_OK` in the build log.
-
-### Manual Setup
-
-```bash
-# Prerequisites
-pip install yt-dlp
-sudo apt install ffmpeg   # or: pkg install ffmpeg yt-dlp   (Termux)
-
-# Voice (optional — without it, voice falls back to the Google tier)
-pip3 install piper-tts==1.8.0
-mkdir -p /app/piper/voices
-curl -fsSL -o /app/piper/voices/en_GB-alba-medium.onnx \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/alba/medium/en_GB-alba-medium.onnx
-curl -fsSL -o /app/piper/voices/en_GB-alba-medium.onnx.json \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/alba/medium/en_GB-alba-medium.onnx.json
-printf '#!/bin/sh\nexec /usr/local/bin/piper "$@"\n' > /app/piper/piper
-chmod +x /app/piper/piper
-
-# Install & run
+git clone https://github.com/t-Durani/minima-v13.git
+cd minima-v13
 npm install
+```
+
+Create your environment configuration, then start the bot:
+
+```bash
 node index.js
 ```
 
+On first launch, provide `PAIR_NUMBER`. MINIMA sends a WhatsApp pairing code to that number. In WhatsApp, open **Linked Devices → Link with phone number** and enter the code.
+
+For hosted deployments, configure the environment variables in your hosting dashboard. Keep the session and database files on persistent storage where your platform supports it.
+
+### Docker
+
+If your repository includes the project Dockerfile:
+
+```bash
+docker build -t minima-v13 .
+docker run --env-file .env -p 8000:8000 minima-v13
+```
+
 ---
 
-## 🔐 Environment Variables
+## 📚 Command directory
+
+**Default prefix:** `.`  
+**Main menu:** `.menu`  
+**Full command list:** `.menu all`  
+**Category browser:** `.menu` then reply with a category number.  
+Replace `.` if you set a different `PREFIX`.
+
+> Commands marked **👑** are owner-restricted. Group administration commands require the relevant WhatsApp admin permissions. Some commands only make sense in groups or when replying to a message.
+
+### 🤖 Bot & information
+
+| Command | Purpose |
+|:--|:--|
+| `.menu` / `.help` / `.m` | Open the interactive command menu |
+| `.ping` | Check response latency |
+| `.uptime` | Show running time |
+| `.status` / `.device` / `.system` | Show server, CPU and memory status |
+| `.botinfo` | Show bot information |
+| `.myid` / `.id` / `.jid` | Show your WhatsApp ID and group ID |
+| `.contact` | Send the developer contact card |
+
+### 📥 Downloads & media
+
+| Command | Usage |
+|:--|:--|
+| `.play` | Search and download audio |
+| `.music` | High-quality music download |
+| `.apk` | Search for and download an Android app |
+| `.tiktok` | Download TikTok media |
+| `.fb` | Download Facebook media |
+| `.ig` | Download Instagram media |
+| `.twitter` / `.x` | Download X/Twitter media |
+| `.video` | Download supported social video |
+| `.sticker` | Reply to an image/video to create a sticker |
+| `.toimage` | Reply to a sticker to convert it to an image |
+| `.vv` | Retrieve supported view-once media |
+| `.steal` | Reply to a status to save its media |
+| `.wallpaper` | Search for an HD wallpaper |
+| `.pp` | Get a profile picture |
+
+### 🛡️ Group management
+
+| Command | Purpose |
+|:--|:--|
+| `.groupinfo` | Show group information |
+| `.grouplink` | Get the group invite link |
+| `.revoke` | Reset the group invite link |
+| `.add <number>` | Add a member |
+| `.kick @user` | Remove a member |
+| `.kickall` | Remove non-admin members |
+| `.promote @user` | Promote a member to admin |
+| `.demote @user` | Demote an admin |
+| `.pin` / `.unpin` | Pin or unpin the replied message |
+| `.close` / `.open` | Restrict or reopen group messaging |
+| `.setname <text>` | Change the group name |
+| `.setdesc <text>` | Change the group description |
+| `.tagall` | Mention group members |
+| `.tagadmins` | Mention group admins |
+| `.tagactive` | Mention active members |
+| `.warn @user` | Issue a warning |
+| `.warnlist` | List active warnings |
+| `.clearwarn @user` | Clear a member's warnings |
+| `.antilink on/off` | Toggle anti-link protection |
+| `.welcome on/off` | Toggle group welcome messages |
+| `.antidelete on/off` 👑 | Toggle deleted-message recovery |
+| `.antiedit on/off` 👑 | Toggle edited-message detection |
+| `.afklist` | List AFK members |
+| `.report` | Report a bug or issue |
+
+### 🧠 AI, memory & auto-replies
+
+| Command | Purpose |
+|:--|:--|
+| `.aion` / `.aioff` 👑 | Enable or disable AI in the current chat |
+| `.aigroups on/off` 👑 | Toggle AI across groups |
+| `.aidms on/off` 👑 | Toggle AI across private chats |
+| `.aiglobalon` / `.aiglobaloff` 👑 | Enable or disable AI globally |
+| `.aiclear` 👑 | Clear the current AI conversation memory |
+| `.offline on/off` 👑 | Toggle the personal-assistant mode for DMs |
+| `.addrule <instruction>` 👑 | Add a standing AI rule |
+| `.rules` 👑 | List saved AI rules |
+| `.delrule <number>` 👑 | Delete a saved AI rule |
+| `.learn <trigger> \| <reply>` 👑 | Teach a custom auto-reply |
+| `.unlearnreply <trigger>` 👑 | Remove a learned reply |
+| `.listreplies` 👑 | List learned replies |
+| `.victoria on/off` 👑 | Toggle the owner-only Victoria persona |
+
+### 🎙️ Voice
+
+MINIMA can process supported WhatsApp voice notes and can send spoken replies when the voice policy selects them.
+
+| Engine | Role |
+|:--|:--|
+| Piper TTS | Local neural voice generation |
+| Google TTS | Fallback voice generation |
+| FFmpeg | Converts generated audio to WhatsApp-compatible Opus |
+| Text fallback | Keeps the reply available if voice generation fails |
+
+Voice output depends on the host having the required voice model, executable and FFmpeg. Voice-note transcription also requires a configured speech API provider.
+
+### 🧰 Utilities
+
+| Command | Purpose |
+|:--|:--|
+| `.weather <city>` | Get current weather information |
+| `.convert <amount> <from> <to>` | Convert currencies |
+| `.bible <reference>` | Fetch a Bible passage, for example `John 3:16` |
+| `.remind <time> <message>` | Set a timed reminder (`30m`, `2h`, `10s`) |
+| `.createlogo <text>` | Generate a simple logo image |
+| `.shorten <url>` | Shorten a URL |
+| `.news` | Fetch BBC World headlines |
+| `.gift` | Send a surprise gift link |
+
+### 🎮 Games
+
+| Command | Purpose |
+|:--|:--|
+| `.game` | Start the 15-round group trivia game |
+| `.answer <A-D>` | Submit an answer |
+| `.score` | Show the scoreboard |
+| `.hint` | Request an AI hint |
+| `.clear` | End the active game (admin) |
+| `.wordchain` | Start or manage a word-chain game |
+| `.riddle` | Get a riddle; reply with your answer |
+
+### 🎭 Fun & social
+
+| Command | Purpose |
+|:--|:--|
+| `.joke` | Random joke |
+| `.fact` | Random fact |
+| `.quote` | Motivational quote |
+| `.fortune` | Fortune message |
+| `.8ball <question>` | Ask the magic 8-ball |
+| `.ship <name1> & <name2>` | Compatibility meter |
+| `.lovemeter` | Love meter |
+| `.truth` | Truth question |
+| `.wyr` | Would-you-rather question |
+| `.funpoll` | Create a fun poll |
+| `.pollresults` | Show the latest poll tally |
+| `.roast` | Generate a roast |
+| `.compliment` | Generate a compliment |
+| `.mock <text>` | Convert text to mocking style |
+| `.rate` | Rate a prompt or person |
+| `.howmany <question>` | Random percentage |
+| `.coinflip` | Flip a coin |
+| `.dice` | Roll a die |
+| `.afk [reason]` / `.unafk` | Set or clear your AFK status |
+
+### ✨ Aesthetic
+
+`.outfit` · `.tarot` · `.bestie` · `.sparkle <text>` · `.vapor <text>` · `.zodiac <sign>` · `.brocode [1-80]`
+
+### 🎬 Action GIFs
+
+Use an action command with a mention or reply where a target is required:
+
+`.kiss` · `.hug` · `.slap` · `.punch` · `.kickgif` · `.kill` · `.cuddle` · `.holdhands` · `.handshake` · `.respect` · `.wave` · `.laugh` · `.cry` · `.blush` · `.sleep` · `.dancegirl` · `.danceguy` · `.weddingdance`
+
+Owner GIF tools:
+
+- `.gifcheck` — check configured GIF links.
+- `.addgif <action> <Giphy link>` — add a GIF for an action. This can activate additional actions such as `pat`, `poke`, `bite`, `tickle`, `highfive` and `wink`.
+
+### 🔐 NV Talk / HeartCipher
+
+| Command | Purpose |
+|:--|:--|
+| `.nv <text>` | Encode text into NV Talk |
+| `.nv <grade> <text>` | Encode using a selected grade |
+| `.nvd <text>` | Decode NV Talk |
+| `.teach [@user] [1/2/3]` | Send an NV Talk lesson |
+| `.quiz [@user] [1/2/3]` | Start a cipher quiz |
+| `.grant @user` 👑 | Grant Scholar access |
+| `.reject @user` 👑 | Remove Scholar access |
+| `.lockdown on/off` 👑 | Lock or unlock NV Talk |
+
+### 🌐 Network toolkit
+
+| Command | Purpose |
+|:--|:--|
+| `.hostest <domain>` | Run a multi-stage host check |
+| `.port <host>` | Check selected open ports |
+| `.ip <host>` | Show IP information |
+| `.dns <domain>` | Inspect DNS records |
+| `.sub <domain>` | Discover subdomains |
+| `.host <domain>` | Inspect SSL certificate and host details |
+
+### ⚙️ Owner & system controls
+
+| Command | Purpose |
+|:--|:--|
+| `.public` / `.self` 👑 | Switch public or owner-only mode |
+| `.callblock on/off` 👑 | Toggle incoming-call blocking |
+| `.autoview on/off` 👑 | Toggle status auto-view/react |
+| `.botquiet on/off` 👑 | Toggle automatic reactions in this chat |
+| `.autoadmin on/off` 👑 | Toggle reactions to group-admin messages |
+| `.angrymode on/off` 👑 | Toggle dark/angry mode |
+| `.calmdown` 👑 | Restore the default mood |
+| `.bot @user <message>` 👑 | Relay a message through the bot |
+| `.bc <message>` 👑 | Broadcast to participating groups |
+| `.ban @user` / `.unban @user` 👑 | Manage bot access |
+| `.addprem @user` / `.delprem @user` 👑 | Grant or remove premium status |
+| `.join <invite-link>` 👑 | Join a group |
+| `.left` 👑 | Leave the current group |
+| `.shieldstatus` 👑 | View or manage shield state |
+| `.update` | View maintenance notices |
+| `.addupdate <text>` 👑 | Add a maintenance notice |
+| `.delupdate <number>` 👑 | Remove a maintenance notice |
+| `.setkeeper` 👑 | Set the current group as the report/keeper group |
+| `.cleancache` 👑 | Clear supported temporary caches |
+| `.errorlog [clear]` 👑 | View or clear recent errors |
+| `.backup` 👑 | Create a settings backup |
+| `.restore` 👑 | Restore from a replied backup file |
+| `.emergencystop confirm` 👑 | Activate the emergency stop |
+| `.resume` 👑 | Resume after emergency stop |
+| `.reset confirm` 👑 | Confirm a factory reset |
+| `.darkmenu` 👑 | Open the dark protocol menu |
+
+---
+
+## 🔧 Environment variables
+
+Set these in your `.env` file or hosting dashboard. Do not commit secrets.
 
 | Variable | Required | Description |
-|---|---|---|
-| `SESSION_ID` | Recommended | Base64-encoded WhatsApp session — skips re-pairing on restart |
-| `PAIR_NUMBER` | ✅ (first run) | The WhatsApp number to pair, digits only |
-| `OWNER_NAME` | Optional | Display name (default: `t.Durani`) |
-| `BOT_NAME` | Optional | Display name (default: `MINIMA V13`) |
-| `PREFIX` | Optional | Command prefix (default: `.`) |
-| `MODE` | Optional | `public` or `private` (default: `public`) |
-| `PORT` | Optional | Health-check server port (default: `7860`) |
-| `SUB_OWNER_ID` / `SUB_OWNERS` | Optional | Additional owner-level numbers |
-| `KEEPER_GROUP_ID` | Optional | Group JID for error mirroring + keepalive pings |
-| `RESUME_TOKEN` | Optional | Secret for the HTTP `/resume` endpoint (clears emergency stop) |
-| `JAMENDO_CLIENT_ID` | Optional | Free key from developer.jamendo.com — adds Jamendo (free/Creative-Commons music) to the audio search |
-| `SESSION_DIR` | Optional | Override the session storage path |
-| `PIPER_BIN` | Optional | Path to the Piper executable (default: `/app/piper/piper`) |
-| `PIPER_VOICE` | Optional | Path to the voice model (default: `/app/piper/voices/en_GB-alba-medium.onnx`) |
-| `GROQ_API_KEY` / `GEMINI_API_KEY` / `OPENROUTER_API_KEY` | Optional | AI provider keys (conversational AI, hints) |
-
-> No database server required — all settings, rules, and history persist to a local `database.json`, with automatic backups.
-
----
-
-## 🏗️ Architecture
-
-```
-/
-├── index.js          # Everything — connection, command router, all 145 commands, voice engine, schedulers
-├── Dockerfile        # Node 20 + ffmpeg + yt-dlp + Piper TTS (with build-time verification)
-├── .dockerignore     # Keeps node_modules, .git, sessions and local Piper files out of the image
-├── database.json     # Local persistence (settings, rules, maintenance notes, etc.)
-├── chat-memory.json  # AI conversation memory, persisted across restarts
-├── error-log.json    # Recent error history
-├── piper/            # Created inside the image: piper wrapper + voices/en_GB-alba-medium.onnx(.json)
-└── downloads/        # Temporary media (auto-purged)
-```
-
-**Tech Stack**
-
-| Layer | Technology |
-|---|---|
-| WhatsApp Client | [@whiskeysockets/baileys](https://github.com/WhiskeySockets/Baileys) |
-| Runtime | Node.js 20+ (CommonJS) |
-| Health Check | Express |
-| Media Processing | FFmpeg + yt-dlp |
-| Voice (tier 1) | Piper TTS — Python `piper-tts` 1.8.0, `en_GB-alba-medium` |
-| Voice (tier 2) | Google Translate TTS over HTTP |
-| Persistence | Local JSON file, no external DB |
-| AI | Groq / Gemini / OpenRouter (configurable) |
-
-Deliberately single-file: every command, scheduler, and helper lives in one `index.js`. No build step, no module graph to debug — easy to read top-to-bottom, easy to deploy anywhere Node runs.
+|:--|:--:|:--|
+| `PAIR_NUMBER` | First pairing | WhatsApp number to pair, digits only |
+| `SESSION_ID` | Recommended | Saved session payload to avoid pairing again |
+| `BOT_NAME` | No | Bot display name |
+| `OWNER_NAME` | No | Owner display name |
+| `PREFIX` | No | Command prefix; default `.` |
+| `MODE` | No | `public` or `private` / self mode |
+| `PORT` | Host-dependent | Health-server port |
+| `SESSION_DIR` | No | Custom session directory |
+| `SUB_OWNER_ID` / `SUB_OWNERS` | No | Additional owner numbers |
+| `KEEPER_GROUP_ID` | No | Keeper/report group JID |
+| `RESUME_TOKEN` | No | Secret for the HTTP resume endpoint |
+| `GROQ_API_KEY` | AI features | Groq API access |
+| `OPENROUTER_API_KEY` | AI fallback | OpenRouter API access |
+| `GEMINI_API_KEY` | Optional AI | Gemini API access |
+| `PIPER_BIN` | Voice optional | Piper executable path |
+| `PIPER_VOICE` | Voice optional | Piper voice-model path |
 
 ---
 
-## ⚠️ Known Limitations
+## 🧱 Stack
 
-Documented honestly rather than swept under the rug:
+| Component | Technology |
+|:--|:--|
+| WhatsApp connection | [Baileys](https://github.com/WhiskeySockets/Baileys) |
+| Runtime | Node.js |
+| HTTP health endpoint | Express |
+| AI providers | Groq / OpenRouter / Gemini integration |
+| Media downloads | yt-dlp |
+| Audio conversion | FFmpeg |
+| Voice generation | Piper TTS / Google TTS |
+| Local persistence | JSON files |
 
-- **TikTok downloads** are at the mercy of an ongoing, unresolved upstream fight between `yt-dlp` and TikTok's anti-scraping changes. Keep `yt-dlp` updated (`yt-dlp -U`); this can still break without warning regardless.
-- **YouTube is not supported.** YouTube bot-checks cloud hosts (Koyeb, Render, HF), so downloads from it can't be made reliable. Music search therefore uses SoundCloud, Internet Archive and Jamendo — a smaller catalogue than YouTube, so very new or mainstream tracks may not be found; a pasted Audiomack/Bandcamp link always works. Some SoundCloud tracks are DRM-locked and are skipped automatically.
-- **Occasional "Bad MAC" / session decrypt errors** against specific contacts are a known Baileys/Signal-session limitation, not a bug in this codebase. The bot clears stale session files on boot as a mitigation; a persistently affected contact may need to log out/in on their end to force a fresh handshake.
-- **Voice synthesis is not instant.** A short sentence takes roughly 10–20 seconds on a 1-vCPU free-tier host. The Piper call has a 90-second timeout and the ffmpeg conversion 60 seconds; if either is exceeded, the reply silently falls back to text.
-- **Voice needs ffmpeg.** Both the Piper and Google tiers convert through ffmpeg. Without it, every voice attempt falls back to text.
-- **`.nhie` is advertised in the menu but not implemented.** The command listing includes it, but no handler is registered — it will be treated as an unknown command. The same applies to `.define`, `.calc`, `.trs` and `.hw`, which the previous README advertised but which no longer exist in the code.
+### Project layout
+
+```text
+minima-v13/
+├── index.js
+├── package.json
+├── Dockerfile
+├── .dockerignore
+├── database.json          # generated local settings store
+├── chat-memory.json       # generated AI conversation memory
+├── error-log.json         # generated rolling error log
+├── minima-session/        # generated WhatsApp session (Termux)
+└── downloads/             # temporary media and audio
+```
+
+Generated files and folders may differ by deployment platform.
+
+---
+
+## 🛡️ Operational notes
+
+- Keep API keys and WhatsApp session data private.
+- Use persistent storage for session and JSON data on hosts with ephemeral filesystems.
+- Media downloads depend on upstream platform availability and may stop working when those platforms change their restrictions.
+- Voice features require FFmpeg; Piper additionally requires its executable and voice model.
+- Network diagnostics depend on outbound network access and the target host's response.
+- Use group moderation commands only where you have the required admin permissions.
 
 ---
 
 ## 📄 License
 
-**KIDJUSTIN-K Proprietary License** — Copyright © 2026 t.Durani ([tinotendadurani55](https://github.com/tinotendadurani55)). All rights reserved.
+**KIDJUSTIN-K Proprietary License**  
+Copyright © 2026 **t.Durani**. All rights reserved.
 
-| | |
-|---|---|
-| ✅ **Permitted** | Cloning/downloading for personal, non-commercial use · running the bot privately for your own WhatsApp account |
-| 🚫 **Prohibited without written permission** | Redistributing, selling, or sublicensing · republishing under a different name/repo · removing or altering the copyright notice · commercial use · claiming authorship |
-| 📝 **Attribution** | Any permitted use must credit t.Durani — [github.com/tinotendadurani55](https://github.com/tinotendadurani55) |
-| ⚖️ **Warranty** | Provided "as is", with no warranty of any kind |
-| 💼 **Commercial licensing** | Contact [tinotendadurani55@gmail.com](mailto:tinotendadurani55@gmail.com) |
+- Personal, non-commercial use is permitted under the project license.
+- Redistribution, resale, sublicensing, republishing and commercial use require written permission.
+- Keep the original copyright and attribution notices intact.
+- Software is provided “as is”, without warranty.
 
-Full legal text:
-- In this repository: [`LICENSE`](LICENSE)
-- Hosted copy: [rentry.co/t-Durani-LICENSE](https://rentry.co/t-Durani-LICENSE)
+Full terms: [`LICENSE`](LICENSE) · [Hosted license](https://rentry.co/t-Durani-LICENSE)
 
 ---
 
 ## 📬 Contact
 
-**t.Durani** — Bot Developer · Zimbabwe 🇿🇼
+**Developer:** t.Durani · Zimbabwe 🇿🇼
 
-<p align="left">
-  <a href="https://wa.me/263777426534">
-    <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp">
-  </a>
-</p>
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Contact%20Developer-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/263777426534)
+[![GitHub](https://img.shields.io/badge/GitHub-t--Durani-181717?style=for-the-badge&logo=github)](https://github.com/t-Durani)
 
----
+<div align="center">
 
-<p align="center">
-  Built by <strong>t.Durani</strong> · MINI BOT.ZW 🇿🇼
-</p>
+**MINIMA V13 · MINI BOT.ZW**
+
+*Built with precision. Maintained by t.Durani. 🇿🇼*
+
+</div>
