@@ -1,21 +1,51 @@
-
-# Ignore dependencies
+# ── Node dependencies (reinstalled inside the image) ──────────────────────
 node_modules
+npm-debug.log*
 
-# Ignore Git files
+# ── Git ───────────────────────────────────────────────────────────────────
 .git
+.gitignore
+.gitattributes
 
-# Ignore sensitive config files
+# ── Secrets ───────────────────────────────────────────────────────────────
 .env
+.env.*
+*.pem
 
-# Ignore session/authentication files
+# ── WhatsApp session / auth state ─────────────────────────────────────────
+# Never ship credentials into an image — the bot restores from SESSION_ID.
 session
+sessions
+auth_info
 auth_info_zim
+minima-session
+*.key
+creds.json
 
-# Ignore downloaded or temporary files
+# ── Runtime data ──────────────────────────────────────────────────────────
 downloads
+tmp
+temp
 *.log
- 
-# Ignore Docker-related files
+*.wav
+*.ogg
+*.mp3
+
+# ── Local Piper install ───────────────────────────────────────────────────
+# Piper is installed INSIDE the image by the Dockerfile, never copied from
+# the build context. Excluding these keeps any local copy from shadowing it.
+piper
+piper.tgz
+*.onnx
+*.onnx.json
+
+# ── Docker files themselves ───────────────────────────────────────────────
 Dockerfile
+Dockerfile.*
 .dockerignore
+docker-compose.yml
+
+# ── Editor / OS noise ─────────────────────────────────────────────────────
+.DS_Store
+.vscode
+.idea
